@@ -26,7 +26,7 @@ namespace RelationshipGraph
             Message m = new Message();
 
             // Test basic Connection
-            Connection<Relationship> c = new Connection<Relationship>(a, b, r);
+            Connection<Entity, Relationship> c = new Connection<Entity, Relationship>(a, b, r);
 
             // keep the console window open
             Console.WriteLine("Enter any key to quit");

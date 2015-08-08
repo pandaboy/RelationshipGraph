@@ -2,10 +2,12 @@
 
 namespace RelationshipGraph.Interfaces
 {
-    public interface IConnection<TRelationship> where TRelationship : IRelationship<TRelationship>
+    public interface IConnection<TEntity, TRelationship> 
+        where TRelationship : IRelationship<TRelationship>
+        where TEntity : IEntity
     {
-        IEntity From { get; set; }
-        IEntity To { get; set; }
+        TEntity From { get; set; }
+        TEntity To { get; set; }
         TRelationship Relationship { get; set; }
     }
 }
