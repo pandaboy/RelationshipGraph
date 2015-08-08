@@ -42,6 +42,8 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Edges\Edge.cs" />
+    <Compile Include="Graph\Graph.cs" />
+    <Compile Include="Interfaces\IGraph.cs" />
     <Compile Include="Nodes\Entity.cs" />
     <Compile Include="Interfaces\IEdge.cs" />
     <Compile Include="Interfaces\INode.cs" />
