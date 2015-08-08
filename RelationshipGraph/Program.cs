@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using RelationshipGraph.Entities;
 using RelationshipGraph.Messages;
 using RelationshipGraph.Relationships;
-using RelationshipGraph.Connections;
+using RelationshipGraph.Edges;
 
 namespace RelationshipGraph
 {
@@ -26,7 +26,7 @@ namespace RelationshipGraph
             Message m = new Message();
 
             // Test basic Connection
-            Connection<Entity, Relationship> c = new Connection<Entity, Relationship>(a, b, r);
+            Edge<Entity, Relationship> c = new Edge<Entity, Relationship>(a, b, r);
 
             // keep the console window open
             Console.WriteLine("Enter any key to quit");

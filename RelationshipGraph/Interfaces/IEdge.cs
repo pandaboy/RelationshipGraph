@@ -2,7 +2,7 @@
 
 namespace RelationshipGraph.Interfaces
 {
-    public interface IConnection<TEntity, TRelationship> 
+    public interface IEdge<TEntity, TRelationship> 
         where TRelationship : IRelationship<TRelationship>
         where TEntity : IEntity
     {

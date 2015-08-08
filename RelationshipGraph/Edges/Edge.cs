@@ -1,13 +1,13 @@
 ﻿using System;
 using RelationshipGraph.Interfaces;
 
-namespace RelationshipGraph.Connections
+namespace RelationshipGraph.Edges
 {
-    public class Connection<TEntity, TRelationship> : IConnection<TEntity, TRelationship>
+    public class Edge<TEntity, TRelationship> : IEdge<TEntity, TRelationship>
         where TRelationship : IRelationship<TRelationship>
         where TEntity : IEntity
     {
-        public Connection(TEntity from, TEntity to, TRelationship relationship)
+        public Edge(TEntity from, TEntity to, TRelationship relationship)
         {
             From = from;
             To = to;
