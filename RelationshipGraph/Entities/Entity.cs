@@ -7,6 +7,17 @@ namespace RelationshipGraph.Entities
     {
         private static int count = 0;
 
+        public Entity(int entityId = -1)
+        {
+            // increase the number of entities
+            count++;
+
+            if (entityId == -1)
+                EntityId = count;
+            else
+                EntityId = entityId;
+        }
+
         // used to identify each Entity
         private int _EntityId;
         public int EntityId

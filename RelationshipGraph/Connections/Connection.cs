@@ -6,6 +6,13 @@ namespace RelationshipGraph.Connections
     public class Connection<TRelationship> : IConnection<TRelationship>
         where TRelationship : IRelationship<TRelationship>
     {
+        public Connection(IEntity from, IEntity to, TRelationship relationship)
+        {
+            From = from;
+            To = to;
+            Relationship = relationship;
+        }
+
         private IEntity _From;
         public IEntity From
         {
