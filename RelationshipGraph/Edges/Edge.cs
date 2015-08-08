@@ -3,19 +3,19 @@ using RelationshipGraph.Interfaces;
 
 namespace RelationshipGraph.Edges
 {
-    public class Edge<TEntity, TRelationship> : IEdge<TEntity, TRelationship>
+    public class Edge<TNode, TRelationship> : IEdge<TNode, TRelationship>
         where TRelationship : IRelationship<TRelationship>
-        where TEntity : IEntity
+        where TNode : INode
     {
-        public Edge(TEntity from, TEntity to, TRelationship relationship)
+        public Edge(TNode from, TNode to, TRelationship relationship)
         {
             From = from;
             To = to;
             Relationship = relationship;
         }
 
-        private TEntity _From;
-        public TEntity From
+        private TNode _From;
+        public TNode From
         {
             get
             {
@@ -28,8 +28,8 @@ namespace RelationshipGraph.Edges
             }
         }
 
-        private TEntity _To;
-        public TEntity To
+        private TNode _To;
+        public TNode To
         {
             get
             {

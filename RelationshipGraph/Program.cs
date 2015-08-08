@@ -16,6 +16,7 @@ namespace RelationshipGraph
             Console.WriteLine("=========================================");
 
             // Test basic Entities
+            Node n = new Node();
             Entity a = new Entity();
             Entity b = new Entity();
 

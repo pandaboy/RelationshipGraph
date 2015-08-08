@@ -2,12 +2,12 @@
 
 namespace RelationshipGraph.Interfaces
 {
-    public interface IEdge<TEntity, TRelationship> 
+    public interface IEdge<TNode, TRelationship> 
         where TRelationship : IRelationship<TRelationship>
-        where TEntity : IEntity
+        where TNode : INode
     {
-        TEntity From { get; set; }
-        TEntity To { get; set; }
+        TNode From { get; set; }
+        TNode To { get; set; }
         TRelationship Relationship { get; set; }
     }
 }

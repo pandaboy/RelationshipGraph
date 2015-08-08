@@ -42,12 +42,13 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Edges\Edge.cs" />
-    <Compile Include="Entities\Entity.cs" />
+    <Compile Include="Nodes\Entity.cs" />
     <Compile Include="Interfaces\IEdge.cs" />
-    <Compile Include="Interfaces\IEntity.cs" />
+    <Compile Include="Interfaces\INode.cs" />
     <Compile Include="Interfaces\IMessage.cs" />
     <Compile Include="Interfaces\IRelationship.cs" />
     <Compile Include="Messages\Message.cs" />
+    <Compile Include="Nodes\Node.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Relationships\Relationship.cs" />

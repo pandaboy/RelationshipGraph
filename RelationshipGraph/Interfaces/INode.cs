@@ -7,12 +7,12 @@
     /// An implementation of an IEntity MUST provide a unique EntityId.
     /// And a method for handling messages sent to it.
     /// </remarks>
-    public interface IEntity
+    public interface INode
     {
         /// <summary>
         /// Used to uniquely identify entities
         /// </summary>
-        int EntityId { get; set; }
+        int NodeId { get; set; }
 
         /// <summary>
         /// Gets called by the Messenger class when a message is due

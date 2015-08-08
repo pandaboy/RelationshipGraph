@@ -3,7 +3,7 @@ using RelationshipGraph.Interfaces;
 
 namespace RelationshipGraph.Entities
 {
-    public class Entity : IEntity
+    public class Entity : INode
     {
         private static int count = 0;
 
@@ -30,6 +30,19 @@ namespace RelationshipGraph.Entities
             set
             {
                 _EntityId = value;
+            }
+        }
+
+        public int NodeId
+        {
+            get
+            {
+                return EntityId;
+            }
+
+            set
+            {
+                EntityId = value;
             }
         }
 
