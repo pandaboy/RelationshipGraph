@@ -1,6 +1,4 @@
 ﻿namespace RelationshipGraph.Interfaces
 {
-    public interface IMessage
-    {
-    }
+    public interface IMessage { }
 }
