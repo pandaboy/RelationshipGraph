@@ -1,7 +1,7 @@
 ﻿using System;
 using RelationshipGraph.Interfaces;
 
-namespace RelationshipGraph.Entities
+namespace RelationshipGraph.Nodes
 {
     public class Entity : INode
     {
