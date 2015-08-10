@@ -48,15 +48,36 @@ namespace RelationshipGraph.Graphs
 
             return false;
         }
+
+        public virtual bool NodeHasEdge(TNode node, TEdge edge)
+        {
+            if (!ContainsKey(node))
+                return false;
+
+            foreach(TEdge e in this[node])
+            {
+                if (e.From.Equals(edge.From) && e.To.Equals(edge.To))
+                    return true;
+            }
+
+            return false;
+        }
         #endregion
 
         #region Adding Edges
         public virtual void AddEdge(TNode node, TEdge edge)
         {
+            // if we aren't already storing edges for this node,
+            // add a new key and list for the node
             if (!ContainsKey(node))
                 Add(node, new List<TEdge>());
 
-            this[node].Add(edge);
+            // check if we already have this edge stored for this node
+            // if we do, update the relationship - otherwise add it
+            if (NodeHasEdge(node, edge))
+                GetNodeEdge(node, edge).Relationship = edge.Relationship;
+            else
+                this[node].Add(edge);
         }
 
         public virtual void AddDirectEdge(TEdge edge)
@@ -123,6 +144,20 @@ namespace RelationshipGraph.Graphs
             {
                 if (edge.From.Equals(from) && edge.To.Equals(to))
                     return edge;
+            }
+
+            return default(TEdge);
+        }
+
+        public virtual TEdge GetNodeEdge(TNode node, TEdge edge)
+        {
+            if (!ContainsKey(node))
+                return default(TEdge);
+
+            foreach(TEdge nodeEdge in this[node])
+            {
+                if (nodeEdge.From.Equals(edge.From) && nodeEdge.To.Equals(edge.To))
+                    return nodeEdge;
             }
 
             return default(TEdge);
@@ -273,9 +308,21 @@ namespace RelationshipGraph.Graphs
         
         public bool SendMessage(TNode from, TRelationship rel, IMessage msg, double delay = 0.0)
         {
-            ICollection<TNode> nodes = WithRelationshipTo(from, rel);
+            ICollection<TNode> nodes = WithRelationship(from, rel);
 
             foreach(TNode node in nodes)
+            {
+                SendMessage(from, node, msg, delay);
+            }
+
+            return true;
+        }
+
+        public bool SendMessageTo(TNode from, TRelationship rel, IMessage msg, double delay = 0.0)
+        {
+            ICollection<TNode> nodes = WithRelationshipTo(from, rel);
+
+            foreach (TNode node in nodes)
             {
                 SendMessage(from, node, msg, delay);
             }

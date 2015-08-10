@@ -5,6 +5,7 @@ namespace RelationshipGraph.Nodes
 {
     public class Node : INode<Node>
     {
+        #region INode implementations
         public virtual bool HandleMessage(IMessage message)
         {
             // do something with the message
@@ -23,5 +24,6 @@ namespace RelationshipGraph.Nodes
 
             return true;
         }
+        #endregion
     }
 }

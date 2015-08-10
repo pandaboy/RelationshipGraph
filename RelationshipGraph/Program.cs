@@ -6,7 +6,6 @@ using RelationshipGraph.Messages;
 using RelationshipGraph.Relationships;
 using RelationshipGraph.Edges;
 using RelationshipGraph.Graphs;
-using RelationshipGraph.Enums;
 
 namespace RelationshipGraph
 {
@@ -18,41 +17,45 @@ namespace RelationshipGraph
             Console.WriteLine("|\t- RelationshipGraph -\t\t|");
             Console.WriteLine("=========================================");
 
-            ConnectionGraph graph = new ConnectionGraph();
+            ExtendedEntity brendan = new ExtendedEntity("Brendan", 28);
+            ExtendedEntity kathy = new ExtendedEntity("Kathy", 26);
+            ExtendedEntity brian = new ExtendedEntity("Brian", 29);
+            ExtendedEntity moha = new ExtendedEntity("Moha", 28);
+            brian.Name = "Ondati";
+            IList<ExtendedEntity> entities = new List<ExtendedEntity>();
 
-            Entity a = new Entity();
-            Entity b = new Entity();
-            Entity g = new Entity();
-
-            IList<Entity> entities = new List<Entity>();
-
-            for(int i = 0; i < 10; i++)
+            for (int i = 0; i < 20; i++)
             {
-                Entity e = new Entity();
-                entities.Add(e);
-                graph.AddConnection(e, new Connection(e, g, new Relationship(RelationshipType.MEMBER)));
+                entities.Add(new ExtendedEntity("Stranger", i + 1));
             }
 
-            graph.AddConnection(g, new Connection(g, a, new Relationship(RelationshipType.FOLLOWER)));
-            graph.AddConnection(a, new Connection(a, g, new Relationship(RelationshipType.LEADER)));
+            // testing a connection graph
+            ConnectionGraph graph = ConnectionGraph.Instance;
 
-            Console.WriteLine("FOLLOWERS");
-            Relationship rel = new Relationship(RelationshipType.MEMBER);
-            
-            foreach(Entity e in graph.WithRelationshipTo(g, rel))
+            // Relationships
+            Relationship gf = new Relationship(RelationshipType.GIRLFRIEND);
+            Relationship fr = new Relationship(RelationshipType.FRIEND);
+            Relationship wf = new Relationship(RelationshipType.WIFE);
+
+            // Adding a connection
+            graph.AddConnection(brendan, new Connection(brendan, kathy, gf));
+            graph.AddDirectConnection(new Connection(kathy, brendan, new Relationship(RelationshipType.BOYFRIEND)));
+            graph.AddConnection(brendan, new Connection(kathy, brian, fr));
+            graph.AddDirectConnection(new Connection(brendan, brian, fr));
+
+            Connection wifeConnection = new Connection(brendan, kathy, wf);
+            //wifeConnection.Relationship = gf;
+            //Console.WriteLine(wifeConnection);
+            //brendan.Learn(wifeConnection);
+            //graph.AddDirectConnection(wifeConnection);
+
+            Console.WriteLine("Direct Connections");
+            foreach(Connection conn in graph.GetDirectConnections(brendan))
             {
-                Console.WriteLine(e);
+                Console.WriteLine(conn);
             }
 
-            StringMessage msg = new StringMessage("Brendan is crazy");
-
-            Messenger<Entity>.Instance.Send(a, b, msg);
-            msg.Text = "No he isn't!";
-            Messenger<Entity>.Instance.Send(b, a, msg);
-            msg.Text = "YES he is!";
-            graph.SendMessage(b, a, msg);
-            msg.Text = "I ACCEPT THIS MESSAGE FROM MY LEADER!";
-            graph.SendMessage(g, rel, msg);
+            graph.PrintConnections();
 
             // keep the console window open
             Console.WriteLine("Enter any key to quit");

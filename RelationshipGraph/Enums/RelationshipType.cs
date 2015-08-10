@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace RelationshipGraph.Enums
+namespace RelationshipGraph
 {
     /// <summary>
     /// Possible relationship types to be used in a Relationship

@@ -1,6 +1,5 @@
 ﻿using System;
 using RelationshipGraph.Interfaces;
-using RelationshipGraph.Enums;
 
 namespace RelationshipGraph.Relationships
 {
