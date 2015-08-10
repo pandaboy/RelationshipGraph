@@ -215,6 +215,11 @@ namespace RelationshipGraph.Graphs
         {
             _graph.SendMessageTo(entity, relationship, message, delay);
         }
+
+        public void ForgetMessages(Entity entity)
+        {
+            _graph.ForgetMessages(entity);
+        }
         #endregion
 
         #region Removing Connections
