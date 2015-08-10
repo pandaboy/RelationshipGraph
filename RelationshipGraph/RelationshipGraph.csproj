@@ -43,6 +43,8 @@
   <ItemGroup>
     <Compile Include="Edges\Connection.cs" />
     <Compile Include="Edges\Edge.cs" />
+    <Compile Include="Edges\HistoryConnection.cs" />
+    <Compile Include="Edges\HistoryEdge.cs" />
     <Compile Include="Enums\EntityType.cs" />
     <Compile Include="Enums\RelationshipType.cs" />
     <Compile Include="Graphs\ConnectionGraph.cs" />
@@ -51,6 +53,11 @@
     <Compile Include="Graphs\NodeGraph.cs" />
     <Compile Include="Graphs\Graph.cs" />
     <Compile Include="Interfaces\IGraph.cs" />
+    <Compile Include="Messages\ConnectionMessage.cs" />
+    <Compile Include="Messages\EdgeMessage.cs" />
+    <Compile Include="Messages\StringMessage.cs" />
+    <Compile Include="Messages\Messenger.cs" />
+    <Compile Include="Messages\_MSG.cs" />
     <Compile Include="Nodes\Entity.cs" />
     <Compile Include="Interfaces\IEdge.cs" />
     <Compile Include="Interfaces\INode.cs" />

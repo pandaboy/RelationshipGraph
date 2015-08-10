@@ -6,6 +6,7 @@ using RelationshipGraph.Messages;
 using RelationshipGraph.Relationships;
 using RelationshipGraph.Edges;
 using RelationshipGraph.Graphs;
+using RelationshipGraph.Enums;
 
 namespace RelationshipGraph
 {
@@ -17,64 +18,41 @@ namespace RelationshipGraph
             Console.WriteLine("|\t- RelationshipGraph -\t\t|");
             Console.WriteLine("=========================================");
 
-            // Test basic Entities
-            Node n = new Node();
+            ConnectionGraph graph = new ConnectionGraph();
+
             Entity a = new Entity();
             Entity b = new Entity();
+            Entity g = new Entity();
 
-            // Test basic Relationships
-            Relationship r = new Relationship();
+            IList<Entity> entities = new List<Entity>();
 
-            // Test basic Message
-            Message m = new Message();
-
-            // Test basic Connection
-            Edge<Entity, Relationship> c = new Edge<Entity, Relationship>(a, b, r);
-            Connection c2 = new Connection(a, b, r); // this is the same thing as the one above
-            Edge<Entity, Cue> e2 = new Edge<Entity, Cue>(a, b, new Cue());
-
-            // Test Basic Graph
-            /*
-            Graph<Node, string> graph = new Graph<Node, string>();
-            graph.Add(n, "Brendan");
-            graph.Add(new Node(50), "Kathy");
-
-            foreach(KeyValuePair<Node, string> p in graph)
+            for(int i = 0; i < 10; i++)
             {
-                Console.WriteLine(p.Key.NodeId + ": " + p.Value);
+                Entity e = new Entity();
+                entities.Add(e);
+                graph.AddConnection(e, new Connection(e, g, new Relationship(RelationshipType.MEMBER)));
             }
-            */
-            IDictionary<INode, string> nodeStrings1 = new Dictionary<INode, string>();
-            nodeStrings1.Add(n, "Brendan");
 
-            IDictionary<INode, IList<string>> nodeStrings2 = new Dictionary<INode, IList<string>>();
-            nodeStrings2.Add(n, new List<string>());
-            nodeStrings2[n].Add("BOB");
-            nodeStrings2[n].Add("JON");
-            nodeStrings2[n].Add("KAT");
-            nodeStrings2[n].Add("DAN");
+            graph.AddConnection(g, new Connection(g, a, new Relationship(RelationshipType.FOLLOWER)));
+            graph.AddConnection(a, new Connection(a, g, new Relationship(RelationshipType.LEADER)));
 
-            KeyValuePair<INode, string> p = new KeyValuePair<INode, string>(n, "PAT");
+            Console.WriteLine("FOLLOWERS");
+            Relationship rel = new Relationship(RelationshipType.MEMBER);
+            
+            foreach(Entity e in graph.WithRelationshipTo(g, rel))
+            {
+                Console.WriteLine(e);
+            }
 
-            Graph<INode, IList<Connection>> graph =
-                new Graph<INode, IList<Connection>>();
+            StringMessage msg = new StringMessage("Brendan is crazy");
 
-            NodeGraph<Relationship> relationshipGraph = new NodeGraph<Relationship>();
-            NodeGraph<Cue> actionGraph = new NodeGraph<Cue>();
-
-            ConnectionGraph<Entity> connections = new ConnectionGraph<Entity>();
-            connections.AddConnection(a, new Connection(a, b, new Relationship()));
-            Console.WriteLine("CONNECTIONS: " + connections.Count);
-
-            //DeepGraph<Node, Edge<Node, Cue>> dg = new DeepGraph<Node, Edge<Node, Cue>>();
-            //DeepGraph<Node, Cue> dg = new DeepGraph<Node, Cue>();
-            DeepGraph<Node, Edge<Node, Cue>, Cue> dg = new DeepGraph<Node, Edge<Node, Cue>, Cue>();
-            DeepGraph<Entity, Connection, Relationship> dg2 = new DeepGraph<Entity, Connection, Relationship>();
-
-            DeepConnectionGraph<Relationship> deepConnections = new DeepConnectionGraph<Relationship>();
-
-            Console.WriteLine(p.Key.NodeId);
-            Console.WriteLine(p.Value);
+            Messenger.Instance.Send(a, b, msg);
+            msg.Text = "No he isn't!";
+            Messenger.Instance.Send(b, a, msg);
+            msg.Text = "YES he is!";
+            graph.SendMessage(b, a, msg);
+            msg.Text = "I ACCEPT THIS MESSAGE FROM MY LEADER!";
+            graph.SendMessage(g, rel, msg);
 
             // keep the console window open
             Console.WriteLine("Enter any key to quit");

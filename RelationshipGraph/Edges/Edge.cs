@@ -7,6 +7,13 @@ namespace RelationshipGraph.Edges
         where TRelationship : IRelationship<TRelationship>
         where TNode : INode
     {
+        public Edge()
+        {
+            From = default(TNode);
+            To = default(TNode);
+            Relationship = default(TRelationship);
+        }
+
         public Edge(TNode from, TNode to, TRelationship relationship)
         {
             From = from;
@@ -15,7 +22,7 @@ namespace RelationshipGraph.Edges
         }
 
         private TNode _From;
-        public TNode From
+        public virtual TNode From
         {
             get
             {
@@ -29,7 +36,7 @@ namespace RelationshipGraph.Edges
         }
 
         private TNode _To;
-        public TNode To
+        public virtual TNode To
         {
             get
             {
@@ -43,7 +50,7 @@ namespace RelationshipGraph.Edges
         }
 
         private TRelationship _Relationship;
-        public TRelationship Relationship
+        public virtual TRelationship Relationship
         {
             get
             {

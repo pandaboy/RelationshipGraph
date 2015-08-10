@@ -1,5 +1,6 @@
 ﻿using System;
 using RelationshipGraph.Interfaces;
+using RelationshipGraph.Messages;
 
 namespace RelationshipGraph.Nodes
 {
@@ -49,9 +50,19 @@ namespace RelationshipGraph.Nodes
         public virtual bool HandleMessage(IMessage message)
         {
             // do something with the message
+            if (message.GetType() == typeof(StringMessage))
+            {
+                StringMessage msg = message as StringMessage;
+                Console.WriteLine(this + " \"" + msg.Text + "\"");
+            }
 
             // successfully did something
             return true;
+        }
+
+        public override string ToString()
+        {
+            return "ENTITY: " + EntityId;
         }
     }
 }
