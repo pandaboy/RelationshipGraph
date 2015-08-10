@@ -97,7 +97,12 @@ namespace RelationshipGraph.Graphs
 
         public bool Remove(TKey node)
         {
-            return _values.Remove(node);
+            if (ContainsKey(node))
+            {
+                return _values.Remove(node);
+            }
+
+            return false;
         }
 
         public bool Remove(KeyValuePair<TKey, TValue> item)

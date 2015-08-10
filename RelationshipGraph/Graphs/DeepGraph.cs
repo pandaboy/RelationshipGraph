@@ -219,6 +219,32 @@ namespace RelationshipGraph.Graphs
 
             return false;
         }
+
+        public virtual bool ClearDirectEdges(TNode node)
+        {
+            if(IsGraphed(node))
+            {
+                foreach(TEdge edge in GetDirectEdges(node))
+                {
+                    RemoveEdge(node, edge);
+                }
+            }
+
+            return false;
+        }
+
+        public virtual bool ClearIndirectEdges(TNode node)
+        {
+            if (IsGraphed(node))
+            {
+                foreach (TEdge edge in GetInDirectEdges(node))
+                {
+                    RemoveEdge(node, edge);
+                }
+            }
+
+            return false;
+        }
         #endregion
 
         #region Relationship queries
