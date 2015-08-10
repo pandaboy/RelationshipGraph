@@ -4,7 +4,7 @@ using RelationshipGraph.Messages;
 
 namespace RelationshipGraph.Nodes
 {
-    public class Entity : INode
+    public class Entity : INode<Entity>
     {
         private static int count = 0;
 
@@ -57,6 +57,17 @@ namespace RelationshipGraph.Nodes
             }
 
             // successfully did something
+            return true;
+        }
+
+        public bool Equals(Entity other)
+        {
+            if (other == null)
+                return false;
+
+            if (this.EntityId != other.EntityId)
+                return false;
+
             return true;
         }
 

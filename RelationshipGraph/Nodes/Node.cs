@@ -3,7 +3,7 @@ using RelationshipGraph.Interfaces;
 
 namespace RelationshipGraph.Nodes
 {
-    public class Node : INode
+    public class Node : INode<Node>
     {
         private static int count = 0;
 
@@ -38,6 +38,17 @@ namespace RelationshipGraph.Nodes
             // do something with the message
 
             // successfully did something
+            return true;
+        }
+
+        public bool Equals(Node other)
+        {
+            if (other == null)
+                return false;
+
+            if (this.NodeId != other.NodeId)
+                return false;
+
             return true;
         }
     }

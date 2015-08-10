@@ -7,7 +7,7 @@
     /// An implementation of an IEntity MUST provide a unique EntityId.
     /// And a method for handling messages sent to it.
     /// </remarks>
-    public interface INode
+    public interface INode<T> : IEquatable<T>
     {
         /// <summary>
         /// Used to uniquely identify entities
