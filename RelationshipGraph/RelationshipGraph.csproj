@@ -50,7 +50,6 @@
     <Compile Include="Graphs\ConnectionGraph.cs" />
     <Compile Include="Graphs\DeepConnectionGraph.cs" />
     <Compile Include="Graphs\DeepGraph.cs" />
-    <Compile Include="Graphs\NodeGraph.cs" />
     <Compile Include="Graphs\Graph.cs" />
     <Compile Include="Interfaces\IGraph.cs" />
     <Compile Include="Messages\ConnectionMessage.cs" />

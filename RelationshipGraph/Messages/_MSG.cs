@@ -4,14 +4,14 @@ using RelationshipGraph.Interfaces;
 
 namespace RelationshipGraph.Messages
 {
-    struct _MSG
+    struct _MSG<TNode> where TNode : INode<TNode>
     {
-        INode Sender;
-        INode Recipient;
+        TNode Sender;
+        TNode Recipient;
         IMessage Message;
         double DispatchTime;
 
-        public _MSG(INode from, INode to, IMessage msg, double dispatchTime)
+        public _MSG(TNode from, TNode to, IMessage msg, double dispatchTime)
         {
             Sender = from;
             Recipient = to;

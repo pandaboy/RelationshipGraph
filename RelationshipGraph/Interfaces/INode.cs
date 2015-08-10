@@ -1,4 +1,6 @@
-﻿namespace RelationshipGraph.Interfaces
+﻿using System;
+
+namespace RelationshipGraph.Interfaces
 {
     /// <summary>
     /// Interface for defining an entity that can be used in the Graph

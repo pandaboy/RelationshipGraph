@@ -46,9 +46,9 @@ namespace RelationshipGraph
 
             StringMessage msg = new StringMessage("Brendan is crazy");
 
-            Messenger.Instance.Send(a, b, msg);
+            Messenger<Entity>.Instance.Send(a, b, msg);
             msg.Text = "No he isn't!";
-            Messenger.Instance.Send(b, a, msg);
+            Messenger<Entity>.Instance.Send(b, a, msg);
             msg.Text = "YES he is!";
             graph.SendMessage(b, a, msg);
             msg.Text = "I ACCEPT THIS MESSAGE FROM MY LEADER!";

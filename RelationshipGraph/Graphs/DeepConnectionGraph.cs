@@ -7,9 +7,10 @@ using RelationshipGraph.Relationships;
 
 namespace RelationshipGraph.Graphs
 {
-    public class DeepConnectionGraph<TRelationship>
-        : DeepGraph<INode, IEdge<INode, TRelationship>, TRelationship>
+    public class DeepConnectionGraph<TNode, TRelationship>
+        : DeepGraph<TNode, IEdge<TNode, TRelationship>, TRelationship>
         where TRelationship : IRelationship<TRelationship>
+        where TNode : INode<TNode>
     {
 
     }

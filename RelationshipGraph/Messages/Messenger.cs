@@ -4,18 +4,18 @@ using RelationshipGraph.Interfaces;
 
 namespace RelationshipGraph.Messages
 {
-    public class Messenger
+    public class Messenger<TNode> where TNode : INode<TNode>
     {
-        private IList<_MSG> _q;
-        private static readonly Messenger _instance = new Messenger();
+        private IList<_MSG<TNode>> _q;
+        private static readonly Messenger<TNode> _instance = new Messenger<TNode>();
 
         private Messenger()
         {
             if (_q == null)
-                _q = new List<_MSG>();
+                _q = new List<_MSG<TNode>>();
         }
 
-        public static Messenger Instance
+        public static Messenger<TNode> Instance
         {
             get
             {
@@ -23,7 +23,7 @@ namespace RelationshipGraph.Messages
             }
         }
 
-        public void Send(INode sender, INode recipient, IMessage message, double delay = 0.0)
+        public void Send(TNode sender, TNode recipient, IMessage message, double delay = 0.0)
         {
             if (delay <= 0.0)
                 recipient.HandleMessage(message);
@@ -31,11 +31,11 @@ namespace RelationshipGraph.Messages
                 Queue(sender, recipient, message, delay);
         }
 
-        public void Queue(INode sender, INode recipient, IMessage message, double delay = 0.0)
+        public void Queue(TNode sender, TNode recipient, IMessage message, double delay = 0.0)
         {
             double dispatch_time = delay;
             //double dispatch_time = (int)Time.time + delay;
-            _q.Add(new _MSG(sender, recipient, message, dispatch_time));
+            _q.Add(new _MSG<TNode>(sender, recipient, message, dispatch_time));
         }
 
         public void SendDelayed()

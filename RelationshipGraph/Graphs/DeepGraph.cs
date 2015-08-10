@@ -8,9 +8,9 @@ using RelationshipGraph.Messages;
 namespace RelationshipGraph.Graphs
 {
     public class DeepGraph<TNode, TEdge, TRelationship> : Graph<TNode, IList<TEdge>>
-        where TNode : INode
-        where TEdge : IEdge<TNode, TRelationship>
+        where TNode : INode<TNode>
         where TRelationship : IRelationship<TRelationship>
+        where TEdge : IEdge<TNode, TRelationship>
     {
         #region Graph Checkers
         /// <summary>
@@ -260,12 +260,12 @@ namespace RelationshipGraph.Graphs
         /// <summary>
         /// Graph has a messenger for sending messages between nodes
         /// </summary>
-        private Messenger _messenger;
+        private Messenger<TNode> _messenger;
 
         public bool SendMessage(TNode from, TNode to, IMessage msg, double delay = 0.0)
         {
             if (_messenger == null)
-                _messenger = Messenger.Instance;
+                _messenger = Messenger<TNode>.Instance;
 
             _messenger.Send(from, to, msg, delay);
 

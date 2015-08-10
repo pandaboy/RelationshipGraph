@@ -5,7 +5,7 @@ namespace RelationshipGraph.Edges
 {
     public class Edge<TNode, TRelationship> : IEdge<TNode, TRelationship>
         where TRelationship : IRelationship<TRelationship>
-        where TNode : INode
+        where TNode : INode<TNode>
     {
         public Edge()
         {

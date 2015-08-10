@@ -4,7 +4,7 @@ namespace RelationshipGraph.Interfaces
 {
     public interface IEdge<TNode, TRelationship> 
         where TRelationship : IRelationship<TRelationship>
-        where TNode : INode
+        where TNode : INode<TNode>
     {
         TNode From { get; set; }
         TNode To { get; set; }

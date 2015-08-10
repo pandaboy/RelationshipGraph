@@ -6,7 +6,7 @@ namespace RelationshipGraph.Edges
 {
     public class HistoryEdge<TNode, TRelationship> : IEdge<TNode, TRelationship>
         where TRelationship : IRelationship<TRelationship>
-        where TNode : INode
+        where TNode : INode<TNode>
     {
         public HistoryEdge()
         {
