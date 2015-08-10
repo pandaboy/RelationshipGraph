@@ -30,7 +30,7 @@ namespace RelationshipGraph
             }
 
             // testing a connection graph
-            ConnectionGraph graph = ConnectionGraph.Instance;
+            Connections graph = Connections.Instance;
 
             // Relationships
             Relationship gf = new Relationship(RelationshipType.GIRLFRIEND);

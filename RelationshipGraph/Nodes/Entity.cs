@@ -72,7 +72,7 @@ namespace RelationshipGraph.Nodes
                 if (EntityType == EntityType.GROUP)
                 {
                     Relationship members = new Relationship(RelationshipType.MEMBER);
-                    ConnectionGraph.Instance.SendMessage(this, members, message);
+                    Connections.Instance.SendMessage(this, members, message);
                 }
             }
 
@@ -135,7 +135,7 @@ namespace RelationshipGraph.Nodes
         /// <returns>true/false depending on successful implementation of learning</returns>
         public virtual bool Learn(Connection newConnection)
         {
-            ConnectionGraph graph = ConnectionGraph.Instance;
+            Connections graph = Connections.Instance;
 
             // check if the Entity has a similar connection already (matching FROM and TO properties)
             if(graph.HasConnection(newConnection.From, newConnection.To))
@@ -166,7 +166,7 @@ namespace RelationshipGraph.Nodes
                 Relationship members = new Relationship(RelationshipType.MEMBER);
                 ConnectionMessage message = new ConnectionMessage(newConnection);
 
-                ConnectionGraph.Instance.SendMessage(this, members, message);
+                Connections.Instance.SendMessage(this, members, message);
             }
 
             return true;
@@ -198,7 +198,7 @@ namespace RelationshipGraph.Nodes
         /// </remarks>
         public virtual void ConflictingConnection(Connection newConnection, Connection currentConnection = null)
         {
-            ConnectionGraph graph = ConnectionGraph.Instance;
+            Connections graph = Connections.Instance;
             if(currentConnection == null)
             {
                 // learn newConnection

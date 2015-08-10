@@ -17,18 +17,18 @@ namespace RelationshipGraph.Graphs
     /// Entity, Connection and Relationship classes. Adds additional
     /// methods specific to these classes.
     /// </remarks>
-    public class ConnectionGraph
+    public class Connections
     {
         private DeepGraph<Entity, Connection, Relationship> _graph;
 
-        private static readonly ConnectionGraph _instance = new ConnectionGraph();
+        private static readonly Connections _instance = new Connections();
 
-        private ConnectionGraph()
+        private Connections()
         {
             _graph = new DeepGraph<Entity, Connection, Relationship>();
         }
 
-        public static ConnectionGraph Instance
+        public static Connections Instance
         {
             get
             {
