@@ -42,8 +42,7 @@ namespace RelationshipGraph.Graphs
 
             foreach (TEdge edge in this[from])
             {
-                // search for the edge with match from and to Nodes
-                if (edge.From.NodeId == from.NodeId && edge.To.NodeId == to.NodeId)
+                if (edge.From.Equals(from) && edge.To.Equals(to))
                     return true;
             }
 
@@ -94,7 +93,7 @@ namespace RelationshipGraph.Graphs
             
             foreach(TEdge edge in this[node])
             {
-                if (edge.From.NodeId == node.NodeId)
+                if (edge.From.Equals(node))
                     direct.Add(edge);
             }
 
@@ -107,7 +106,7 @@ namespace RelationshipGraph.Graphs
 
             foreach (TEdge edge in this[node])
             {
-                if (edge.From.NodeId != node.NodeId)
+                if(!edge.From.Equals(node))
                     indirect.Add(edge);
             }
 
@@ -122,8 +121,7 @@ namespace RelationshipGraph.Graphs
 
             foreach (TEdge edge in this[from])
             {
-                // search for the edge with match from and to Nodes
-                if (edge.From.NodeId == from.NodeId && edge.To.NodeId == to.NodeId)
+                if (edge.From.Equals(from) && edge.To.Equals(to))
                     return edge;
             }
 
@@ -210,7 +208,7 @@ namespace RelationshipGraph.Graphs
             // but should only search through the given nodes direct connections
             foreach(TEdge edge in GetDirectEdges(node))
             {
-                if (edge.Relationship.Equals(relationship) && edge.From.NodeId == node.NodeId)
+                if (edge.Relationship.Equals(relationship) && edge.From.Equals(node))
                     nodes.Add(edge.To);
             }
 
@@ -236,7 +234,7 @@ namespace RelationshipGraph.Graphs
             {
                 foreach(TEdge edge in edges)
                 {
-                    if (edge.Relationship.Equals(relationship) && edge.To.NodeId == node.NodeId)
+                    if(edge.Relationship.Equals(relationship) && edge.To.Equals(node))
                         nodes.Add(edge.From);
                 }
             }

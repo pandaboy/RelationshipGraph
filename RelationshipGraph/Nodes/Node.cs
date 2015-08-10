@@ -5,34 +5,6 @@ namespace RelationshipGraph.Nodes
 {
     public class Node : INode<Node>
     {
-        private static int count = 0;
-
-        public Node(int nodeId = -1)
-        {
-            // increase the number of entities
-            count++;
-
-            if (nodeId == -1)
-                NodeId = count;
-            else
-                NodeId = nodeId;
-        }
-
-        // used to identify each Entity
-        private int _NodeId;
-        public int NodeId
-        {
-            get
-            {
-                return _NodeId;
-            }
-
-            set
-            {
-                _NodeId = value;
-            }
-        }
-
         public virtual bool HandleMessage(IMessage message)
         {
             // do something with the message
@@ -41,12 +13,12 @@ namespace RelationshipGraph.Nodes
             return true;
         }
 
-        public bool Equals(Node other)
+        public virtual bool Equals(Node other)
         {
             if (other == null)
                 return false;
 
-            if (this.NodeId != other.NodeId)
+            if (!this.Equals(other))
                 return false;
 
             return true;

@@ -12,11 +12,6 @@ namespace RelationshipGraph.Interfaces
     public interface INode<T> : IEquatable<T>
     {
         /// <summary>
-        /// Used to uniquely identify entities
-        /// </summary>
-        int NodeId { get; set; }
-
-        /// <summary>
         /// Gets called by the Messenger class when a message is due
         /// </summary>
         /// <param name="message">An object that implements the IMessage interface</param>

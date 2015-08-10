@@ -34,19 +34,6 @@ namespace RelationshipGraph.Nodes
             }
         }
 
-        public int NodeId
-        {
-            get
-            {
-                return EntityId;
-            }
-
-            set
-            {
-                EntityId = value;
-            }
-        }
-
         public virtual bool HandleMessage(IMessage message)
         {
             // do something with the message
