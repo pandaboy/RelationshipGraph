@@ -331,7 +331,6 @@ namespace RelationshipGraph.Graphs
             return true;
         }
 
-        
         public bool SendMessage(TNode from, TRelationship rel, IMessage msg, double delay = 0.0)
         {
             ICollection<TNode> nodes = WithRelationship(from, rel);
@@ -354,6 +353,16 @@ namespace RelationshipGraph.Graphs
             }
 
             return true;
+        }
+
+        /// <summary>
+        /// Forgets messages queue'd for the given node
+        /// </summary>
+        /// <param name="node"></param>
+        /// <returns></returns>
+        public void ForgetMessages(TNode node)
+        {
+            _messenger.Forget(node);
         }
         #endregion
     }

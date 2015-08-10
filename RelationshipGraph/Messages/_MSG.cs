@@ -6,8 +6,8 @@ namespace RelationshipGraph.Messages
 {
     struct _MSG<TNode> where TNode : INode<TNode>
     {
-        TNode Sender;
-        TNode Recipient;
+        public TNode Sender;
+        public TNode Recipient;
         IMessage Message;
         double DispatchTime;
 
