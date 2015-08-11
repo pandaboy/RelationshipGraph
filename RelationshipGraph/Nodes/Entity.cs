@@ -72,7 +72,7 @@ namespace RelationshipGraph.Nodes
                 if (EntityType == EntityType.GROUP)
                 {
                     Relationship members = new Relationship(RelationshipType.MEMBER);
-                    Connections.Instance.SendMessage(this, members, message);
+                    Connections.Instance.SendMessageTo(this, members, message);
                 }
             }
 
@@ -166,7 +166,7 @@ namespace RelationshipGraph.Nodes
                 Relationship members = new Relationship(RelationshipType.MEMBER);
                 ConnectionMessage message = new ConnectionMessage(newConnection);
 
-                Connections.Instance.SendMessage(this, members, message);
+                Connections.Instance.SendMessageTo(this, members, message);
             }
 
             return true;

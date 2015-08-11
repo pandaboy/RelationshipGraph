@@ -24,8 +24,10 @@ namespace RelationshipGraph
             ExtendedEntity kathy = new ExtendedEntity("Kathy", 26);
             ExtendedEntity brian = new ExtendedEntity("Brian", 29);
             ExtendedEntity moha = new ExtendedEntity("Moha", 30);
-            ExtendedEntity group = new ExtendedEntity("MOB", 100);
+            ExtendedEntity group = new ExtendedEntity("MOB", 100, EntityType.GROUP);
+            ExtendedEntity mob = new ExtendedEntity("SUPERMOB", 101, EntityType.GROUP);
 
+            graph.AddDirectConnection(new Connection(group, mob, new Relationship(RelationshipType.MEMBER)));
             graph.AddConnection(brendan, new Connection(brendan, kathy, new Relationship(RelationshipType.GIRLFRIEND)));
             graph.AddConnection(brendan, new Connection(moha, brian, new Relationship(RelationshipType.FRIEND)));
             graph.AddConnection(brendan, new Connection(brian, kathy, new Relationship(RelationshipType.FRIEND)));
@@ -82,6 +84,24 @@ namespace RelationshipGraph
             {
                 Console.WriteLine(conn);
             }
+
+            //StringMessage s_msg1 = new StringMessage("Hi there!");
+
+            //graph.SendMessage(brendan, kathy, s_msg1);
+            // send a message to all that I'm leader of
+            //graph.SendMessage(brendan, new Relationship(RelationshipType.LEADER), s_msg1);
+            // send a message to all that follow me
+            //graph.SendMessageTo(brendan, new Relationship(RelationshipType.FOLLOWER), s_msg1);
+            //graph.SendMessage(brendan, group, new StringMessage("DO STUFF"));
+            //graph.SendMessage(brendan, mob, new StringMessage("SUPER DO STUFF"));
+
+            /*
+            graph.SendMessage(brendan, group, new ConnectionMessage(
+                new Connection(group, moha, new Relationship(RelationshipType.ENEMY)))
+            );
+            */
+
+            //graph.PrintConnections();
 
             // keep the console window open
             Console.WriteLine("Enter any key to quit");
