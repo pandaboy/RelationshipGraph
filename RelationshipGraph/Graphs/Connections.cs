@@ -28,6 +28,11 @@ namespace RelationshipGraph.Graphs
             _graph = new DeepGraph<Entity, Connection, Relationship>();
         }
 
+        public bool IsGraphed(Entity entity)
+        {
+            return _graph.IsGraphed(entity);
+        }
+
         public static Connections Instance
         {
             get
@@ -45,6 +50,11 @@ namespace RelationshipGraph.Graphs
         public bool EntityHasConnection(Entity entity, Connection connection)
         {
             return _graph.NodeHasEdge(entity, connection);
+        }
+
+        public bool EntityHasConnection(Entity entity, Entity from, Entity to)
+        {
+            return _graph.NodeHasEdge(entity, from, to);
         }
 
         /// <summary>

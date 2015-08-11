@@ -49,18 +49,23 @@ namespace RelationshipGraph.Graphs
             return false;
         }
 
-        public virtual bool NodeHasEdge(TNode node, TEdge edge)
+        public virtual bool NodeHasEdge(TNode node, TNode from, TNode to)
         {
             if (!ContainsKey(node))
                 return false;
 
-            foreach(TEdge e in this[node])
+            foreach(TEdge edge in GetEdges(node))
             {
-                if (e.From.Equals(edge.From) && e.To.Equals(edge.To))
+                if (edge.From.Equals(from) && edge.To.Equals(to))
                     return true;
             }
 
             return false;
+        }
+
+        public virtual bool NodeHasEdge(TNode node, TEdge edge)
+        {
+            return NodeHasEdge(node, edge.From, edge.To);
         }
         #endregion
 
@@ -69,15 +74,21 @@ namespace RelationshipGraph.Graphs
         {
             // if we aren't already storing edges for this node,
             // add a new key and list for the node
-            if (!ContainsKey(node))
+            if (!IsGraphed(node))
+            {
                 Add(node, new List<TEdge>());
+            }
 
             // check if we already have this edge stored for this node
             // if we do, update the relationship - otherwise add it
             if (NodeHasEdge(node, edge))
+            {
                 GetNodeEdge(node, edge).Relationship = edge.Relationship;
+            }
             else
+            {
                 this[node].Add(edge);
+            }
         }
 
         public virtual void AddDirectEdge(TEdge edge)
@@ -112,10 +123,13 @@ namespace RelationshipGraph.Graphs
         {
             ICollection<TEdge> direct = new List<TEdge>();
             
-            foreach(TEdge edge in this[node])
+            if(ContainsKey(node))
             {
-                if (edge.From.Equals(node))
-                    direct.Add(edge);
+                foreach (TEdge edge in this[node])
+                {
+                    if (edge.From.Equals(node))
+                        direct.Add(edge);
+                }
             }
 
             return direct;
@@ -140,7 +154,7 @@ namespace RelationshipGraph.Graphs
             if (!ContainsKey(from))
                 return default(TEdge);
 
-            foreach (TEdge edge in this[from])
+            foreach(TEdge edge in GetDirectEdges(from))
             {
                 if (edge.From.Equals(from) && edge.To.Equals(to))
                     return edge;
@@ -154,7 +168,7 @@ namespace RelationshipGraph.Graphs
             if (!ContainsKey(node))
                 return default(TEdge);
 
-            foreach(TEdge nodeEdge in this[node])
+            foreach(TEdge nodeEdge in GetEdges(node))
             {
                 if (nodeEdge.From.Equals(edge.From) && nodeEdge.To.Equals(edge.To))
                     return nodeEdge;

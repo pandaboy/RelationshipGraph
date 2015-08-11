@@ -7,7 +7,8 @@ namespace RelationshipGraph.Edges
     public class Connection : HistoryEdge<Entity, Relationship>
     {
         public Connection() : base() {}
-        public Connection(Entity a, Entity b, Relationship rel) : base(a, b, rel) { }
+        public Connection(Entity from, Entity to, Relationship relationship)
+            : base(from, to, relationship) { }
 
         public override string ToString()
         {
@@ -20,7 +21,7 @@ namespace RelationshipGraph.Edges
             string history = From + " - [";
 
             foreach(Relationship relationship in History)
-                history += relationship.RelationshipType + " ";
+                history += relationship + " ";
 
             history += "] - " + To;
 

@@ -56,12 +56,16 @@ namespace RelationshipGraph.Graphs
         {
             get
             {
-                return _values[node];
+                if (ContainsKey(node))
+                    return _values[node];
+                else
+                    return default(TValue);
             }
 
             set
             {
-                _values[node] = value;
+                if(ContainsKey(node))
+                    _values[node] = value;
             }
         }
 
@@ -80,7 +84,6 @@ namespace RelationshipGraph.Graphs
             _values.Clear();
         }
         
-
         // search if we have a matching item in our graph.
         // however, our graph contains a list of TValues foreach
         // TKey - we check the LATEST/last value for a match

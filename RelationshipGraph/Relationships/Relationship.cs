@@ -89,5 +89,10 @@ namespace RelationshipGraph.Relationships
             return hash;
             //return base.GetHashCode();
         }
+
+        public override string ToString()
+        {
+            return RelationshipType + " (" + Weight + ")";
+        }
     }
 }

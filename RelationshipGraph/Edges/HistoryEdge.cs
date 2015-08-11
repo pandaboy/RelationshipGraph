@@ -55,7 +55,7 @@ namespace RelationshipGraph.Edges
         }
         
         private IList<TRelationship> _Relationships;
-        public IList<TRelationship> Relationships
+        public virtual IList<TRelationship> Relationships
         {
             get
             {
@@ -68,7 +68,7 @@ namespace RelationshipGraph.Edges
             }
         }
 
-        public ICollection<TRelationship> History
+        public virtual ICollection<TRelationship> History
         {
             get
             {
@@ -76,17 +76,36 @@ namespace RelationshipGraph.Edges
             }
         }
 
-        public TRelationship Relationship
+        public virtual TRelationship Relationship
         {
             get
             {
+                if (Relationships.Count <= 0)
+                    return default(TRelationship);
+
                 int last = Relationships.Count - 1;
-                return Relationships[last];
+                return _Relationships[last];
             }
 
             set
             {
-                Relationships.Add(value);
+                // if we have relationships store, check the latest entity
+                // before adding new ones
+                if (Relationships.Count > 0)
+                {
+                    // check if the latest relationship is the same as the
+                    // most recent. if it is don't add it, update the weight
+                    int last = Relationships.Count - 1;
+                    if (!_Relationships[last].Equals(value))
+                        _Relationships.Add(value);
+                    else
+                        _Relationships[last] = value;
+                }
+                else
+                    Relationships.Add(value);
+
+                // or just add
+                // Relationships.Add(value);
             }
         }
     }
