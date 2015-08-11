@@ -12,18 +12,17 @@ namespace RelationshipGraph.Edges
         {
             _Relationships = new List<TRelationship>();
 
-            From = default(TNode);
-            To = default(TNode);
-            Relationship = default(TRelationship);
+            _From = default(TNode);
+            _To = default(TNode);
         }
 
         public HistoryEdge(TNode from, TNode to, TRelationship relationship)
         {
             _Relationships = new List<TRelationship>();
 
-            From = from;
-            To = to;
-            Relationship = relationship;
+            _From = from;
+            _To = to;
+            _Relationships.Add(relationship);
         }
 
         private TNode _From;

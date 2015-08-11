@@ -37,16 +37,7 @@ namespace RelationshipGraph.Graphs
 
         public virtual bool HasEdge(TNode from, TNode to)
         {
-            if (!ContainsKey(from))
-                return false;
-
-            foreach (TEdge edge in this[from])
-            {
-                if (edge.From.Equals(from) && edge.To.Equals(to))
-                    return true;
-            }
-
-            return false;
+            return NodeHasEdge(from, from, to);
         }
 
         public virtual bool NodeHasEdge(TNode node, TNode from, TNode to)

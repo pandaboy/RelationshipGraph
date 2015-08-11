@@ -9,16 +9,16 @@ namespace RelationshipGraph.Edges
     {
         public Edge()
         {
-            From = default(TNode);
-            To = default(TNode);
-            Relationship = default(TRelationship);
+            _From = default(TNode);
+            _To = default(TNode);
+            _Relationship = default(TRelationship);
         }
 
         public Edge(TNode from, TNode to, TRelationship relationship)
         {
-            From = from;
-            To = to;
-            Relationship = relationship;
+            _From = from;
+            _To = to;
+            _Relationship = relationship;
         }
 
         private TNode _From;

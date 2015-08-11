@@ -14,6 +14,13 @@ namespace RelationshipGraph
     {
         static void Main(string[] args)
         {
+            List<string> names = new List<string>();
+
+            names.Add("Brendan");
+            names.Add("Kathy");
+
+            Console.WriteLine(names.BinarySearch("Kathy"));
+
             Console.WriteLine("=========================================");
             Console.WriteLine("|\t- RelationshipGraph -\t\t|");
             Console.WriteLine("=========================================");
@@ -74,6 +81,8 @@ namespace RelationshipGraph
 
             s_msg1.Text = "BANKAI";
             brendan.SendMessage(kathy, s_msg1);
+
+            graph.PrintConnections();
 
             // send a message to all that I'm leader of
             //graph.SendMessage(brendan, new Relationship(RelationshipType.LEADER), s_msg1);

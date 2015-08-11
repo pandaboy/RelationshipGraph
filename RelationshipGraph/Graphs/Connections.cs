@@ -104,6 +104,22 @@ namespace RelationshipGraph.Graphs
             return _graph.GetNodeEdge(entity, connection);
         }
 
+        public ICollection<Connection> GetConnectionsOf(Entity entity, Entity other)
+        {
+            IList<Connection> otherConnections = new List<Connection>();
+
+            if (_graph.IsGraphed(entity))
+            {
+                foreach (Connection connection in GetConnections(entity))
+                {
+                    if (connection.From.Equals(other) || connection.To.Equals(other))
+                        otherConnections.Add(connection);
+                }
+            }
+
+            return otherConnections;
+        }
+
         public ICollection<Connection> GetKnownConnectionsOf(Entity entity, Entity other)
         {
             IList<Connection> known = new List<Connection>();
@@ -311,6 +327,24 @@ namespace RelationshipGraph.Graphs
             return true;
         }
 
+        /// <summary>
+        /// Will remove all knowledge of the other Entity from entity's connections
+        /// </summary>
+        /// <param name="entity"></param>
+        /// <param name="other"></param>
+        /// <returns></returns>
+        public bool ForgetAbout(Entity entity, Entity other)
+        {
+            ICollection<Connection> otherConnections = GetConnectionsOf(entity, other);
+
+            foreach(Connection connection in otherConnections)
+            {
+                _graph.RemoveEdge(entity, connection);
+            }
+
+            return true;
+        }
+
         public void Clear()
         {
             _graph.Clear();
@@ -357,19 +391,51 @@ namespace RelationshipGraph.Graphs
             return matches;
         }
 
+        public IList<Entity> WithRelationshipHistoryTo(Entity entity, Relationship relationship)
+        {
+            IList<Entity> matches = new List<Entity>();
+
+            // we have to check all the connections for each entity
+            foreach (IList<Connection> connections in _graph.Values)
+            {
+                foreach (Connection connection in connections)
+                {
+                    // in each connection look through the relationship history
+                    foreach (Relationship rel in connection.History)
+                    {
+                        // if the connection is TO the entity,
+                        // and the relationship matches
+                        // and it hasn't already been catalogued - add it.
+                        if (rel.Equals(relationship) && connection.To.Equals(entity) && !matches.Contains(connection.From))
+                            matches.Add(connection.From);
+                    }
+                }
+            }
+
+            return matches;
+        }
+
         public IList<Entity> WithConnectionHistory(Entity entity, Connection connection)
         {
             return WithRelationshipHistory(entity, connection.Relationship);
         }
 
+        public IList<Relationship> GetRelationshipHistory(Entity entity, Entity other)
+        {
+            if(EntityHasConnection(entity, entity, other))
+                return GetConnection(entity, other).Relationships;
+            else
+                return new List<Relationship>();
+        }
+
         public bool HaveRelationshipHistory(Entity entity, Entity other, Relationship relationship)
         {
-            if(_graph.IsGraphed(entity) && _graph.IsGraphed(other))
+            if (EntityHasConnection(entity, entity, other))
             {
-                foreach(Connection connection in GetDirectConnections(entity))
+                foreach (Relationship rel in GetConnection(entity, other).Relationships)
                 {
-                    if (connection.Relationship.Equals(relationship) && connection.To.Equals(other))
-                        return false;
+                    if (rel.Equals(relationship))
+                        return true;
                 }
             }
 
@@ -391,8 +457,6 @@ namespace RelationshipGraph.Graphs
         {
             return HaveSharedRelationshipHistory(entity, other, connection.Relationship);
         }
-
-
         #endregion
 
         #region Utilities
