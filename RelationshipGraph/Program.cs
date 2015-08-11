@@ -6,6 +6,7 @@ using RelationshipGraph.Messages;
 using RelationshipGraph.Relationships;
 using RelationshipGraph.Edges;
 using RelationshipGraph.Graphs;
+using RelationshipGraph.Extensions;
 
 namespace RelationshipGraph
 {
@@ -66,28 +67,14 @@ namespace RelationshipGraph
             graph.AddConnection(brendan, new Connection(moha, kathy, fr));
             graph.AddDirectConnection(new Connection(brendan, brian, fr));
             graph.AddDirectConnection(new Connection(kathy, brian, fr));
-            
-            Console.WriteLine("KNOWN");
-            foreach(Connection conn in graph.GetKnownConnectionsOf(brendan, kathy))
-            {
-                Console.WriteLine(conn);
-            }
 
-            Console.WriteLine("INDIRECT");
-            foreach(Connection conn in graph.GetIndirectConnections(brendan))
-            {
-                Console.WriteLine(conn);
-            }
+            StringMessage s_msg1 = new StringMessage("Hi there!");
 
-            Console.WriteLine("ALL");
-            foreach (Connection conn in graph.GetConnections(brendan))
-            {
-                Console.WriteLine(conn);
-            }
+            graph.SendMessage(brendan, kathy, s_msg1);
 
-            //StringMessage s_msg1 = new StringMessage("Hi there!");
+            s_msg1.Text = "BANKAI";
+            brendan.SendMessage(kathy, s_msg1);
 
-            //graph.SendMessage(brendan, kathy, s_msg1);
             // send a message to all that I'm leader of
             //graph.SendMessage(brendan, new Relationship(RelationshipType.LEADER), s_msg1);
             // send a message to all that follow me

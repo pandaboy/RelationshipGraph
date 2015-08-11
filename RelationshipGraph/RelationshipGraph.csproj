@@ -47,6 +47,7 @@
     <Compile Include="Edges\HistoryEdge.cs" />
     <Compile Include="Enums\EntityType.cs" />
     <Compile Include="Enums\RelationshipType.cs" />
+    <Compile Include="Extensions\EntityExtensions.cs" />
     <Compile Include="Graphs\Connections.cs" />
     <Compile Include="Graphs\DeepConnectionGraph.cs" />
     <Compile Include="Graphs\DeepGraph.cs" />
