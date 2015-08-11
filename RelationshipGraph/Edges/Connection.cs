@@ -13,7 +13,6 @@ namespace RelationshipGraph.Edges
         public override string ToString()
         {
             return PrintHistory();
-            //return From + " - " + Relationship.RelationshipType + " - " + To;
         }
 
         public string PrintHistory()
