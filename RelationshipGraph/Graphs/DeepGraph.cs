@@ -156,12 +156,17 @@ namespace RelationshipGraph.Graphs
 
         public virtual TEdge GetNodeEdge(TNode node, TEdge edge)
         {
+            return GetNodeEdge(node, edge.From, edge.To);
+        }
+
+        public virtual TEdge GetNodeEdge(TNode node, TNode from, TNode to)
+        {
             if (!ContainsKey(node))
                 return default(TEdge);
 
-            foreach(TEdge nodeEdge in GetEdges(node))
+            foreach (TEdge nodeEdge in GetEdges(node))
             {
-                if (nodeEdge.From.Equals(edge.From) && nodeEdge.To.Equals(edge.To))
+                if (nodeEdge.From.Equals(from) && nodeEdge.To.Equals(to))
                     return nodeEdge;
             }
 
