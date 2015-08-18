@@ -104,6 +104,11 @@ namespace RelationshipGraph.Graphs
             return _graph.GetNodeEdge(entity, connection);
         }
 
+        public Connection GetEntityConnection(Entity entity, Entity from, Entity to)
+        {
+            return _graph.GetNodeEdge(entity, from, to);
+        }
+
         public ICollection<Connection> GetConnectionsOf(Entity entity, Entity other)
         {
             IList<Connection> otherConnections = new List<Connection>();
