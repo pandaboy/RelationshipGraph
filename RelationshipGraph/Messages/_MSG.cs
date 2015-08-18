@@ -8,8 +8,8 @@ namespace RelationshipGraph.Messages
     {
         public TNode Sender;
         public TNode Recipient;
-        IMessage Message;
-        double DispatchTime;
+        public IMessage Message;
+        public double DispatchTime;
 
         public _MSG(TNode from, TNode to, IMessage msg, double dispatchTime)
         {
