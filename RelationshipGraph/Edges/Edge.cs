@@ -3,10 +3,18 @@ using RelationshipGraph.Interfaces;
 
 namespace RelationshipGraph.Edges
 {
+    /// <summary>
+    /// Standard implementation of IEdge interface
+    /// </summary>
+    /// <typeparam name="TNode">INode type for From and To Attributes</typeparam>
+    /// <typeparam name="TRelationship">IRelationship type</typeparam>
     public class Edge<TNode, TRelationship> : IEdge<TNode, TRelationship>
         where TRelationship : IRelationship<TRelationship>
         where TNode : INode<TNode>
     {
+        /// <summary>
+        /// Constructor
+        /// </summary>
         public Edge()
         {
             _From = default(TNode);
@@ -14,6 +22,12 @@ namespace RelationshipGraph.Edges
             _Relationship = default(TRelationship);
         }
 
+        /// <summary>
+        /// Initializing Constructor
+        /// </summary>
+        /// <param name="from"></param>
+        /// <param name="to"></param>
+        /// <param name="relationship"></param>
         public Edge(TNode from, TNode to, TRelationship relationship)
         {
             _From = from;
@@ -21,7 +35,13 @@ namespace RelationshipGraph.Edges
             _Relationship = relationship;
         }
 
-        private TNode _From;
+        /// <summary>
+        /// Source INode of the Edge
+        /// </summary>
+        protected TNode _From;
+        /// <summary>
+        /// Overrideable Source Node Accessor
+        /// </summary>
         public virtual TNode From
         {
             get
@@ -35,7 +55,13 @@ namespace RelationshipGraph.Edges
             }
         }
 
-        private TNode _To;
+        /// <summary>
+        /// Destination INode for the Edge
+        /// </summary>
+        protected TNode _To;
+        /// <summary>
+        /// Overrideable Destination Accessor
+        /// </summary>
         public virtual TNode To
         {
             get
@@ -49,7 +75,13 @@ namespace RelationshipGraph.Edges
             }
         }
 
-        private TRelationship _Relationship;
+        /// <summary>
+        /// IRelationship for the Edge
+        /// </summary>
+        protected TRelationship _Relationship;
+        /// <summary>
+        /// Overrideable accessor for the Relationship attribute
+        /// </summary>
         public virtual TRelationship Relationship
         {
             get

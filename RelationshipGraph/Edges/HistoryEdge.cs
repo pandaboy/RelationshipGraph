@@ -4,18 +4,31 @@ using RelationshipGraph.Interfaces;
 
 namespace RelationshipGraph.Edges
 {
+    /// <summary>
+    /// DeepEdge/HistoryEdge class. Maintains a list of previous Relationship values
+    /// </summary>
+    /// <typeparam name="TNode">INode used for From and To Attributes</typeparam>
+    /// <typeparam name="TRelationship">IRelationship type</typeparam>
     public class HistoryEdge<TNode, TRelationship> : IEdge<TNode, TRelationship>
         where TRelationship : IRelationship<TRelationship>
         where TNode : INode<TNode>
     {
+        /// <summary>
+        /// Constructor
+        /// </summary>
         public HistoryEdge()
         {
             _Relationships = new List<TRelationship>();
-
             _From = default(TNode);
             _To = default(TNode);
         }
 
+        /// <summary>
+        /// Initializing Constructor
+        /// </summary>
+        /// <param name="from"></param>
+        /// <param name="to"></param>
+        /// <param name="relationship"></param>
         public HistoryEdge(TNode from, TNode to, TRelationship relationship)
         {
             _Relationships = new List<TRelationship>();
@@ -25,7 +38,13 @@ namespace RelationshipGraph.Edges
             _Relationships.Add(relationship);
         }
 
-        private TNode _From;
+        /// <summary>
+        /// Source INode
+        /// </summary>
+        protected TNode _From;
+        /// <summary>
+        /// Source INode accessor
+        /// </summary>
         public TNode From
         {
             get
@@ -39,7 +58,13 @@ namespace RelationshipGraph.Edges
             }
         }
 
-        private TNode _To;
+        /// <summary>
+        /// Destination INode
+        /// </summary>
+        protected TNode _To;
+        /// <summary>
+        /// Destination INode accessor
+        /// </summary>
         public TNode To
         {
             get
@@ -53,7 +78,13 @@ namespace RelationshipGraph.Edges
             }
         }
         
-        private IList<TRelationship> _Relationships;
+        /// <summary>
+        /// List of previous relationship values
+        /// </summary>
+        protected IList<TRelationship> _Relationships;
+        /// <summary>
+        /// Accessor for previous relationship values.
+        /// </summary>
         public virtual IList<TRelationship> Relationships
         {
             get
@@ -67,6 +98,9 @@ namespace RelationshipGraph.Edges
             }
         }
 
+        /// <summary>
+        /// Alias accessor for previous relationship values
+        /// </summary>
         public virtual ICollection<TRelationship> History
         {
             get
@@ -75,6 +109,9 @@ namespace RelationshipGraph.Edges
             }
         }
 
+        /// <summary>
+        /// Overrideable Accessor. Returns most recent relationship value
+        /// </summary>
         public virtual TRelationship Relationship
         {
             get
