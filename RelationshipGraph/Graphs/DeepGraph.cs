@@ -12,7 +12,6 @@ namespace RelationshipGraph.Graphs
         where TRelationship : IRelationship<TRelationship>
         where TEdge : IEdge<TNode, TRelationship>
     {
-        #region Graph Checkers
         /// <summary>
         /// Alias for ContainsKey(node)
         /// </summary>
@@ -58,9 +57,7 @@ namespace RelationshipGraph.Graphs
         {
             return NodeHasEdge(node, edge.From, edge.To);
         }
-        #endregion
 
-        #region Adding Edges
         public virtual void AddEdge(TNode node, TEdge edge)
         {
             // if we aren't already storing edges for this node,
@@ -102,9 +99,7 @@ namespace RelationshipGraph.Graphs
             AddDirectEdge(edge);
             AddDirectEdge(copy);
         }
-        #endregion
 
-        #region Edge Retrieval
         public virtual ICollection<TEdge> GetEdges(TNode node)
         {
             return this[node];
@@ -172,9 +167,7 @@ namespace RelationshipGraph.Graphs
 
             return default(TEdge);
         }
-        #endregion
 
-        #region Edge Removal
         public virtual bool RemoveEdge(TNode node, TEdge edge)
         {
             if(ContainsKey(node))
@@ -255,9 +248,6 @@ namespace RelationshipGraph.Graphs
 
             return false;
         }
-        #endregion
-
-        #region Relationship queries
 
         /// <summary>
         /// Returns nodes with the given relationship to the given node
@@ -323,9 +313,7 @@ namespace RelationshipGraph.Graphs
         {
             return WithRelationshipTo(node, edge.Relationship);
         }
-        #endregion
 
-        #region Messages
         /// <summary>
         /// Graph has a messenger for sending messages between nodes
         /// </summary>
@@ -374,6 +362,5 @@ namespace RelationshipGraph.Graphs
         {
             _messenger.Forget(node);
         }
-        #endregion
     }
 }

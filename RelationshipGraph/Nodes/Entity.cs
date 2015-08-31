@@ -9,14 +9,11 @@ namespace RelationshipGraph.Nodes
 {
     public class Entity : INode<Entity>
     {
-        #region Protected members
         /// <summary>
         /// Number of entities
         /// </summary>
         protected static int count = 0;
-        #endregion
 
-        #region Constructor
         public Entity(int entityId = 0, EntityType entityType = EntityType.SINGLE)
         {
             // increase the number of entities
@@ -26,9 +23,7 @@ namespace RelationshipGraph.Nodes
             EntityId = (entityId == 0) ? count : entityId;
             EntityType = entityType;
         }
-        #endregion
 
-        #region properties
         // used to identify each Entity
         private int _EntityId;
         public int EntityId
@@ -57,9 +52,7 @@ namespace RelationshipGraph.Nodes
                 _EntityType = value;
             }
         }
-        #endregion
-
-        #region INode implementations
+        
         public virtual bool HandleMessage(IMessage message)
         {
             // do something with the message
@@ -98,9 +91,7 @@ namespace RelationshipGraph.Nodes
 
             return true;
         }
-        #endregion
-
-        #region Equality methods
+        
         public override bool Equals(object obj)
         {
             if (obj == null)
@@ -118,16 +109,12 @@ namespace RelationshipGraph.Nodes
         {
             return EntityId;
         }
-        #endregion
-
-        #region Utility
+        
         public override string ToString()
         {
             return "ENTITY: " + EntityId;
         }
-        #endregion
-
-        #region Connection methods
+        
         /// <summary>
         /// Handles obtaining newConnection information.
         /// </summary>
@@ -217,6 +204,5 @@ namespace RelationshipGraph.Nodes
                 }
             }
         }
-        #endregion
     }
 }

@@ -41,7 +41,6 @@ namespace RelationshipGraph.Graphs
             }
         }
 
-        #region Connections Checkers
         public bool HasConnection(Entity entity, Entity other)
         {
             return _graph.HasEdge(entity, other);
@@ -76,9 +75,7 @@ namespace RelationshipGraph.Graphs
 
             return false;
         }
-        #endregion
-
-        #region Connection retrieval
+        
         public ICollection<Connection> GetConnections(Entity entity)
         {
             return _graph.GetEdges(entity);
@@ -204,9 +201,7 @@ namespace RelationshipGraph.Graphs
 
             return common;
         }
-        #endregion
-
-        #region Adding Connections
+        
         public void AddConnection(Entity entity, Connection connection)
         {
             _graph.AddEdge(entity, connection);
@@ -225,9 +220,7 @@ namespace RelationshipGraph.Graphs
         {
             _graph.AddCommonEdge(connection);
         }
-        #endregion
-
-        #region Messages
+        
         public void SendMessage(Entity entity, Entity other, IMessage message, double delay = 0.0)
         {
             _graph.SendMessage(entity, other, message, delay);
@@ -251,9 +244,7 @@ namespace RelationshipGraph.Graphs
         {
             _graph.ForgetMessages(entity);
         }
-        #endregion
-
-        #region Removing Connections
+        
         public void RemoveConnections(Entity entity)
         {
             _graph.Remove(entity);
@@ -354,9 +345,7 @@ namespace RelationshipGraph.Graphs
         {
             _graph.Clear();
         }
-        #endregion
 
-        #region Relationships
         public IList<Entity> WithRelationship(Entity entity, Relationship relationship)
         {
             return _graph.WithRelationship(entity, relationship);
@@ -462,9 +451,7 @@ namespace RelationshipGraph.Graphs
         {
             return HaveSharedRelationshipHistory(entity, other, connection.Relationship);
         }
-        #endregion
 
-        #region Utilities
         /// <summary>
         /// Displays a list of known connections to the console
         /// </summary>
@@ -490,6 +477,5 @@ namespace RelationshipGraph.Graphs
             }
             Console.WriteLine("--");
         }
-        #endregion
     }
 }

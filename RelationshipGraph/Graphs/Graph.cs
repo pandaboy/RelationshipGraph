@@ -8,18 +8,13 @@ namespace RelationshipGraph.Graphs
     // basic graph implementation is an extension of A dictionary
     public class Graph<TKey, TValue> : IGraph<TKey, TValue>
     {
-        #region Private Members
         protected IDictionary<TKey, TValue> _values;
-        #endregion
 
-        #region Constructors
         public Graph()
         {
             _values = new Dictionary<TKey, TValue>();
         }
-        #endregion
 
-        #region IDictionary members
         public int Count
         {
             get
@@ -122,9 +117,7 @@ namespace RelationshipGraph.Graphs
         {
             _values.CopyTo(array, arrayIndex);
         }
-        #endregion
 
-        #region IEnumerable members
         IEnumerator<KeyValuePair<TKey, TValue>> IEnumerable<KeyValuePair<TKey, TValue>>.GetEnumerator()
         {
             return _values.GetEnumerator();
@@ -134,6 +127,5 @@ namespace RelationshipGraph.Graphs
         {
             return ((IEnumerable<KeyValuePair<TKey, TValue>>)this).GetEnumerator();
         }
-        #endregion
     }
 }

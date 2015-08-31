@@ -3,9 +3,7 @@
 namespace RelationshipGraph.Messages
 {
     /// <summary>
-    /// Simple example of a message
+    /// Simple Message implementation
     /// </summary>
-    public class Message : IMessage
-    {
-    }
+    public class Message : IMessage { }
 }
