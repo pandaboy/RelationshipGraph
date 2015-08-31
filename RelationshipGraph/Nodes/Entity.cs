@@ -119,8 +119,9 @@ namespace RelationshipGraph.Nodes
             // a message itself.
             if(message.GetType() == typeof(Connection))
             {
+                Connection connection = message as Connection;
                 // attempt to learn the connection
-                Learn(message);
+                Learn(connection);
 
                 return true;
             }
