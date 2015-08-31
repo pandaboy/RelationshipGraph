@@ -52,7 +52,6 @@
     <Compile Include="Graphs\DeepConnectionGraph.cs" />
     <Compile Include="Graphs\DeepGraph.cs" />
     <Compile Include="Graphs\Graph.cs" />
-    <Compile Include="Interfaces\IExample.cs" />
     <Compile Include="Interfaces\IGraph.cs" />
     <Compile Include="Messages\ConnectionMessage.cs" />
     <Compile Include="Messages\EdgeMessage.cs" />
@@ -66,6 +65,7 @@
     <Compile Include="Interfaces\IRelationship.cs" />
     <Compile Include="Messages\Message.cs" />
     <Compile Include="Nodes\ExtendedEntity.cs" />
+    <Compile Include="Nodes\GroupEntity.cs" />
     <Compile Include="Nodes\Node.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

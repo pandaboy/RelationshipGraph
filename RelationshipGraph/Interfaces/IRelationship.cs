@@ -3,10 +3,13 @@
 namespace RelationshipGraph.Interfaces
 {
     /// <summary>
-    /// Must implement .Equals for valid queries to work
+    /// Interface for defining a Relationship that will work with IGraph
     /// </summary>
-    /// <typeparam name="T">
+    /// <typeparam name="TRelationship">
     /// Type of object used in the equality test
     /// </typeparam>
-    public interface IRelationship<T> : IEquatable<T> { }
+    /// <remarks>
+    /// Must implement Equals() method of IEquatable<T> for valid queries to work
+    /// </remarks>
+    public interface IRelationship<TRelationship> : IEquatable<TRelationship> { }
 }
