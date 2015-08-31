@@ -19,7 +19,7 @@ namespace RelationshipGraph.Messages
         /// <summary>
         /// Queue of pending messages
         /// </summary>
-        protected IList<_MSG<TNode>> _q;
+        private IList<_MSG<TNode>> _q;
 
         /// <summary>
         /// private instance used in singleton - accessed using Instance property

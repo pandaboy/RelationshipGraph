@@ -19,20 +19,27 @@ namespace RelationshipGraph.Graphs
     /// </remarks>
     public class Connections
     {
+        /// <summary>
+        /// Internal graph object
+        /// </summary>
         private DeepGraph<Entity, Connection, Relationship> _graph;
 
+        /// <summary>
+        /// Single has private instance
+        /// </summary>
         private static readonly Connections _instance = new Connections();
 
+        /// <summary>
+        /// Private Constructor for Singleton to prevent duplicates
+        /// </summary>
         private Connections()
         {
             _graph = new DeepGraph<Entity, Connection, Relationship>();
         }
 
-        public bool IsGraphed(Entity entity)
-        {
-            return _graph.IsGraphed(entity);
-        }
-
+        /// <summary>
+        /// Public accessor for class instance
+        /// </summary>
         public static Connections Instance
         {
             get
@@ -41,16 +48,45 @@ namespace RelationshipGraph.Graphs
             }
         }
 
+        /// <summary>
+        /// Checks if the Entity has Edge's in the graph
+        /// </summary>
+        /// <param name="entity"></param>
+        /// <returns></returns>
+        public bool IsGraphed(Entity entity)
+        {
+            return _graph.IsGraphed(entity);
+        }
+
+        /// <summary>
+        /// Wrapper for HasEdge
+        /// </summary>
+        /// <param name="entity"></param>
+        /// <param name="other"></param>
+        /// <returns></returns>
         public bool HasConnection(Entity entity, Entity other)
         {
             return _graph.HasEdge(entity, other);
         }
 
+        /// <summary>
+        /// Wrapper for NodeHasEdge
+        /// </summary>
+        /// <param name="entity"></param>
+        /// <param name="connection"></param>
+        /// <returns></returns>
         public bool EntityHasConnection(Entity entity, Connection connection)
         {
             return _graph.NodeHasEdge(entity, connection);
         }
 
+        /// <summary>
+        /// Wrappper for NodeHasEdge
+        /// </summary>
+        /// <param name="entity"></param>
+        /// <param name="from"></param>
+        /// <param name="to"></param>
+        /// <returns></returns>
         public bool EntityHasConnection(Entity entity, Entity from, Entity to)
         {
             return _graph.NodeHasEdge(entity, from, to);
@@ -76,36 +112,76 @@ namespace RelationshipGraph.Graphs
             return false;
         }
         
+        /// <summary>
+        /// Wrapper for GetEdges
+        /// </summary>
+        /// <param name="entity"></param>
+        /// <returns></returns>
         public ICollection<Connection> GetConnections(Entity entity)
         {
             return _graph.GetEdges(entity);
         }
 
+        /// <summary>
+        /// Wrapper for GetDirectEdges
+        /// </summary>
+        /// <param name="entity"></param>
+        /// <returns></returns>
         public ICollection<Connection> GetDirectConnections(Entity entity)
         {
             return _graph.GetDirectEdges(entity);
         }
 
+        /// <summary>
+        /// Wrapper for GetInDirectEdges
+        /// </summary>
+        /// <param name="entity"></param>
+        /// <returns></returns>
         public ICollection<Connection> GetIndirectConnections(Entity entity)
         {
             return _graph.GetInDirectEdges(entity);
         }
 
+        /// <summary>
+        /// Wrapper for GetEdge
+        /// </summary>
+        /// <param name="entity"></param>
+        /// <param name="other"></param>
+        /// <returns></returns>
         public Connection GetConnection(Entity entity, Entity other)
         {
             return _graph.GetEdge(entity, other);
         }
 
+        /// <summary>
+        /// Wrapper for GetNodeEdge
+        /// </summary>
+        /// <param name="entity"></param>
+        /// <param name="connection"></param>
+        /// <returns></returns>
         public Connection GetEntityConnection(Entity entity, Connection connection)
         {
             return _graph.GetNodeEdge(entity, connection);
         }
 
+        /// <summary>
+        /// Wrapper for GetNodeEdge
+        /// </summary>
+        /// <param name="entity"></param>
+        /// <param name="from"></param>
+        /// <param name="to"></param>
+        /// <returns></returns>
         public Connection GetEntityConnection(Entity entity, Entity from, Entity to)
         {
             return _graph.GetNodeEdge(entity, from, to);
         }
 
+        /// <summary>
+        /// Returns Connections other entity involving other Entity
+        /// </summary>
+        /// <param name="entity"></param>
+        /// <param name="other"></param>
+        /// <returns></returns>
         public ICollection<Connection> GetConnectionsOf(Entity entity, Entity other)
         {
             IList<Connection> otherConnections = new List<Connection>();
@@ -122,6 +198,12 @@ namespace RelationshipGraph.Graphs
             return otherConnections;
         }
 
+        /// <summary>
+        /// Returns connections involving other from entity's connections
+        /// </summary>
+        /// <param name="entity"></param>
+        /// <param name="other"></param>
+        /// <returns></returns>
         public ICollection<Connection> GetKnownConnectionsOf(Entity entity, Entity other)
         {
             IList<Connection> known = new List<Connection>();
@@ -158,6 +240,11 @@ namespace RelationshipGraph.Graphs
             return direct;
         }
 
+        /// <summary>
+        /// Returns All Entities from Indirect Connections
+        /// </summary>
+        /// <param name="entity"></param>
+        /// <returns></returns>
         public ICollection<Entity> GetIndirectEntities(Entity entity)
         {
             ICollection<Entity> indirect = new List<Entity>();
@@ -177,6 +264,12 @@ namespace RelationshipGraph.Graphs
             return indirect;
         }
 
+        /// <summary>
+        /// Returns common connections shared by entity and other
+        /// </summary>
+        /// <param name="entity"></param>
+        /// <param name="other"></param>
+        /// <returns></returns>
         public ICollection<Connection> GetCommonDirectConnections(Entity entity, Entity other)
         {
             ICollection<Connection> common = new List<Connection>();
@@ -202,11 +295,20 @@ namespace RelationshipGraph.Graphs
             return common;
         }
         
+        /// <summary>
+        /// Wrapper for AddEdge
+        /// </summary>
+        /// <param name="entity"></param>
+        /// <param name="connection"></param>
         public void AddConnection(Entity entity, Connection connection)
         {
             _graph.AddEdge(entity, connection);
         }
 
+        /// <summary>
+        /// Wrapper for AddDirectEdge
+        /// </summary>
+        /// <param name="connection"></param>
         public void AddDirectConnection(Connection connection)
         {
             _graph.AddDirectEdge(connection);
@@ -221,70 +323,138 @@ namespace RelationshipGraph.Graphs
             _graph.AddCommonEdge(connection);
         }
         
+        /// <summary>
+        /// wrapper for SendMessage
+        /// </summary>
+        /// <param name="entity"></param>
+        /// <param name="other"></param>
+        /// <param name="message"></param>
+        /// <param name="delay"></param>
         public void SendMessage(Entity entity, Entity other, IMessage message, double delay = 0.0)
         {
             _graph.SendMessage(entity, other, message, delay);
         }
 
-        // sends message to entities with [relationship] from entity
-        // i.e to all entities that [entity] points to with [relationship] "Bob's -> brothers -> Entities"
+        
+        /// <summary>
+        /// Wrapper for SendMessaeg
+        /// </summary>
+        /// <param name="entity"></param>
+        /// <param name="relationship"></param>
+        /// <param name="message"></param>
+        /// <param name="delay"></param>
+        /// <remarks>
+        /// sends message to entities with [relationship] from entity
+        /// i.e to all entities that [entity] points to with [relationship] "Bob's -> brothers -> Entities"
+        /// </remarks>
         public void SendMessage(Entity entity, Relationship relationship, IMessage message, double delay = 0.0)
         {
             _graph.SendMessage(entity, relationship, message, delay);
         }
 
-        // sends message to entities with [relationship] to entity
-        // i.e. to all entities that point to [entity] with [relationship] "Entities -> [Member] -> Group"
+        /// <summary>
+        /// Wrapper for SendMessageTo
+        /// </summary>
+        /// <param name="entity"></param>
+        /// <param name="relationship"></param>
+        /// <param name="message"></param>
+        /// <param name="delay"></param>
+        /// <remarks>
+        /// sends message to entities with [relationship] to entity
+        /// i.e. to all entities that point to [entity] with [relationship] "Entities -> [Member] -> Group"
+        /// </remarks>
         public void SendMessageTo(Entity entity, Relationship relationship, IMessage message, double delay = 0.0)
         {
             _graph.SendMessageTo(entity, relationship, message, delay);
         }
 
+        /// <summary>
+        /// Wrapper for ForgetMessages
+        /// </summary>
+        /// <param name="entity"></param>
         public void ForgetMessages(Entity entity)
         {
             _graph.ForgetMessages(entity);
         }
         
+        /// <summary>
+        /// Wrapper for Remove
+        /// </summary>
+        /// <param name="entity"></param>
         public void RemoveConnections(Entity entity)
         {
             _graph.Remove(entity);
         }
 
+        /// <summary>
+        /// wrapper for RemoveEdge
+        /// </summary>
+        /// <param name="entity"></param>
+        /// <param name="connection"></param>
         public void RemoveConnection(Entity entity, Connection connection)
         {
             _graph.RemoveEdge(entity, connection);
         }
 
+        /// <summary>
+        /// Wrapper fro RemoveDirectEdge
+        /// </summary>
+        /// <param name="connection"></param>
         public void RemoveDirectConnection(Connection connection)
         {
             _graph.RemoveDirectEdge(connection);
         }
 
+        /// <summary>
+        /// Wrapper for RemoveCommonEdge
+        /// </summary>
+        /// <param name="connection"></param>
         public void RemoveCommonConnection(Connection connection)
         {
             _graph.RemoveCommonEdge(connection);
         }
 
+        /// <summary>
+        /// Wrapper for ClearEdges
+        /// </summary>
+        /// <param name="entity"></param>
         public void ClearConnections(Entity entity)
         {
             _graph.ClearEdges(entity);
         }
 
+        /// <summary>
+        /// Wrapper for ClearEdges
+        /// </summary>
+        /// <param name="entity"></param>
         public void ForgetConnections(Entity entity)
         {
             _graph.ClearEdges(entity);
         }
 
+        /// <summary>
+        /// Wrapper for ClearDirectEdges
+        /// </summary>
+        /// <param name="entity"></param>
         public void ForgetDirectConnections(Entity entity)
         {
             _graph.ClearDirectEdges(entity);
         }
 
+        /// <summary>
+        /// Wrapper for ClearIndirectEdges
+        /// </summary>
+        /// <param name="entity"></param>
         public void ForgetIndirectConnections(Entity entity)
         {
             _graph.ClearIndirectEdges(entity);
         }
 
+        /// <summary>
+        /// Wrapper for Forget
+        /// </summary>
+        /// <param name="entity"></param>
+        /// <returns></returns>
         public bool Remove(Entity entity)
         {
             return Forget(entity, true);
@@ -341,31 +511,64 @@ namespace RelationshipGraph.Graphs
             return true;
         }
 
+        /// <summary>
+        /// Wrapper for Clear
+        /// </summary>
         public void Clear()
         {
             _graph.Clear();
         }
 
+        /// <summary>
+        /// Wrapper for WithRelationship
+        /// </summary>
+        /// <param name="entity"></param>
+        /// <param name="relationship"></param>
+        /// <returns></returns>
         public IList<Entity> WithRelationship(Entity entity, Relationship relationship)
         {
             return _graph.WithRelationship(entity, relationship);
         }
 
+        /// <summary>
+        /// Wrapper for WithRelationshipTo
+        /// </summary>
+        /// <param name="entity"></param>
+        /// <param name="relationship"></param>
+        /// <returns></returns>
         public IList<Entity> WithRelationshipTo(Entity entity, Relationship relationship)
         {
             return _graph.WithRelationshipTo(entity, relationship);
         }
 
+        /// <summary>
+        /// Wrapper for WithConnection
+        /// </summary>
+        /// <param name="entity"></param>
+        /// <param name="connection"></param>
+        /// <returns></returns>
         public IList<Entity> WithConnection(Entity entity, Connection connection)
         {
             return WithRelationship(entity, connection.Relationship);
         }
 
+        /// <summary>
+        /// Wrapper for WithConnectionTo
+        /// </summary>
+        /// <param name="entity"></param>
+        /// <param name="connection"></param>
+        /// <returns></returns>
         public IList<Entity> WithConnectionTo(Entity entity, Connection connection)
         {
             return WithRelationshipTo(entity, connection.Relationship);
         }
 
+        /// <summary>
+        /// Checks the relationship history of entity
+        /// </summary>
+        /// <param name="entity"></param>
+        /// <param name="relationship"></param>
+        /// <returns></returns>
         public IList<Entity> WithRelationshipHistory(Entity entity, Relationship relationship)
         {
             IList<Entity> matches = new List<Entity>();
@@ -385,6 +588,12 @@ namespace RelationshipGraph.Graphs
             return matches;
         }
 
+        /// <summary>
+        /// Checks the relationship history of other entities
+        /// </summary>
+        /// <param name="entity"></param>
+        /// <param name="relationship"></param>
+        /// <returns></returns>
         public IList<Entity> WithRelationshipHistoryTo(Entity entity, Relationship relationship)
         {
             IList<Entity> matches = new List<Entity>();
@@ -409,11 +618,23 @@ namespace RelationshipGraph.Graphs
             return matches;
         }
 
+        /// <summary>
+        /// Wrapper for WithRelationshipHistory
+        /// </summary>
+        /// <param name="entity"></param>
+        /// <param name="connection"></param>
+        /// <returns></returns>
         public IList<Entity> WithConnectionHistory(Entity entity, Connection connection)
         {
             return WithRelationshipHistory(entity, connection.Relationship);
         }
 
+        /// <summary>
+        /// Returns the Relationship History with Entity other or an empty list
+        /// </summary>
+        /// <param name="entity"></param>
+        /// <param name="other"></param>
+        /// <returns></returns>
         public IList<Relationship> GetRelationshipHistory(Entity entity, Entity other)
         {
             if(EntityHasConnection(entity, entity, other))
@@ -422,6 +643,13 @@ namespace RelationshipGraph.Graphs
                 return new List<Relationship>();
         }
 
+        /// <summary>
+        /// Checks if entity and other have "relationship" in their history
+        /// </summary>
+        /// <param name="entity"></param>
+        /// <param name="other"></param>
+        /// <param name="relationship"></param>
+        /// <returns></returns>
         public bool HaveRelationshipHistory(Entity entity, Entity other, Relationship relationship)
         {
             if (EntityHasConnection(entity, entity, other))
@@ -436,17 +664,38 @@ namespace RelationshipGraph.Graphs
             return false;
         }
 
+        /// <summary>
+        /// Alias for HaveRelationshipHistory
+        /// </summary>
+        /// <param name="entity"></param>
+        /// <param name="other"></param>
+        /// <param name="connection"></param>
+        /// <returns></returns>
         public bool HaveConnectionHistory(Entity entity, Entity other, Connection connection)
         {
             return HaveRelationshipHistory(entity, other, connection.Relationship);
         }
 
+        /// <summary>
+        /// Combines two HaveRelationshipHistory queries
+        /// </summary>
+        /// <param name="entity"></param>
+        /// <param name="other"></param>
+        /// <param name="relationship"></param>
+        /// <returns></returns>
         public bool HaveSharedRelationshipHistory(Entity entity, Entity other, Relationship relationship)
         {
             return HaveRelationshipHistory(entity, other, relationship)
                 && HaveRelationshipHistory(other, entity, relationship);
         }
 
+        /// <summary>
+        /// Alias for HaveSharedRelationshipHistory
+        /// </summary>
+        /// <param name="entity"></param>
+        /// <param name="other"></param>
+        /// <param name="connection"></param>
+        /// <returns></returns>
         public bool HaveSharedConnectionHistory(Entity entity, Entity other, Connection connection)
         {
             return HaveSharedRelationshipHistory(entity, other, connection.Relationship);

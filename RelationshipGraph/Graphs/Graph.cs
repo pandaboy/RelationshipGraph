@@ -5,16 +5,30 @@ using RelationshipGraph.Interfaces;
 
 namespace RelationshipGraph.Graphs
 {
-    // basic graph implementation is an extension of A dictionary
-    public class Graph<TKey, TValue> : IGraph<TKey, TValue>
+    /// <summary>
+    /// Minium IDictionary implementation for a Graph. Acts as a Base class for other Graphs
+    /// </summary>
+    /// <typeparam name="TNode"></typeparam>
+    /// <typeparam name="TEdges"></typeparam>
+    /// <remarks>Internally, a graph is basically a Dictionary.</remarks>
+    public class Graph<TNode, TEdges> : IGraph<TNode, TEdges>
     {
-        protected IDictionary<TKey, TValue> _values;
+        /// <summary>
+        /// Graph data.
+        /// </summary>
+        protected IDictionary<TNode, TEdges> _values;
 
+        /// <summary>
+        /// Constructor
+        /// </summary>
         public Graph()
         {
-            _values = new Dictionary<TKey, TValue>();
+            _values = new Dictionary<TNode, TEdges>();
         }
 
+        /// <summary>
+        /// Number of records
+        /// </summary>
         public int Count
         {
             get
@@ -23,6 +37,9 @@ namespace RelationshipGraph.Graphs
             }
         }
 
+        /// <summary>
+        /// Graph can be accessed and updated so is NOT read only
+        /// </summary>
         public bool IsReadOnly
         {
             get
@@ -31,7 +48,10 @@ namespace RelationshipGraph.Graphs
             } 
         }
         
-        public ICollection<TKey> Keys
+        /// <summary>
+        /// Returns a collection of Nodes
+        /// </summary>
+        public ICollection<TNode> Keys
         {
             get
             {
@@ -39,7 +59,10 @@ namespace RelationshipGraph.Graphs
             }
         }
         
-        public ICollection<TValue> Values
+        /// <summary>
+        /// Returns a collection of the Edge Sets
+        /// </summary>
+        public ICollection<TEdges> Values
         {
             get
             {
@@ -47,14 +70,19 @@ namespace RelationshipGraph.Graphs
             } 
         }
 
-        public TValue this[TKey node]
+        /// <summary>
+        /// Returns the TEdges each node
+        /// </summary>
+        /// <param name="node"></param>
+        /// <returns></returns>
+        public TEdges this[TNode node]
         {
             get
             {
                 if (ContainsKey(node))
                     return _values[node];
                 else
-                    return default(TValue);
+                    return default(TEdges);
             }
 
             set
@@ -64,36 +92,59 @@ namespace RelationshipGraph.Graphs
             }
         }
 
-        public void Add(KeyValuePair<TKey, TValue> item)
+        /// <summary>
+        /// Adds a new KeyValuePair
+        /// </summary>
+        /// <param name="item"></param>
+        public void Add(KeyValuePair<TNode, TEdges> item)
         {
             _values.Add(item);
         }
 
-        public void Add(TKey node, TValue value)
+        /// <summary>
+        /// Alternative add method
+        /// </summary>
+        /// <param name="node"></param>
+        /// <param name="value"></param>
+        public void Add(TNode node, TEdges value)
         {
             _values.Add(node, value);
         }
 
+        /// <summary>
+        /// Clears the graph
+        /// </summary>
         public void Clear()
         {
             _values.Clear();
         }
         
-        // search if we have a matching item in our graph.
-        // however, our graph contains a list of TValues foreach
-        // TKey - we check the LATEST/last value for a match
-        public bool Contains(KeyValuePair<TKey, TValue> item)
+        /// <summary>
+        /// Searches for a matching KeyValuePair in the graph
+        /// </summary>
+        /// <param name="item"></param>
+        /// <returns></returns>
+        public bool Contains(KeyValuePair<TNode, TEdges> item)
         {
             return _values.Contains(item);
         }
 
-        // this is fine
-        public bool ContainsKey(TKey node)
+        /// <summary>
+        /// Searches for a matching INode
+        /// </summary>
+        /// <param name="node"></param>
+        /// <returns></returns>
+        public bool ContainsKey(TNode node)
         {
             return _values.ContainsKey(node);
         }
 
-        public bool Remove(TKey node)
+        /// <summary>
+        /// Removes all Edges for the given INode
+        /// </summary>
+        /// <param name="node"></param>
+        /// <returns></returns>
+        public bool Remove(TNode node)
         {
             if (ContainsKey(node))
             {
@@ -103,29 +154,53 @@ namespace RelationshipGraph.Graphs
             return false;
         }
 
-        public bool Remove(KeyValuePair<TKey, TValue> item)
+        /// <summary>
+        /// Removes a matching KeyValuePair
+        /// </summary>
+        /// <param name="item"></param>
+        /// <returns></returns>
+        public bool Remove(KeyValuePair<TNode, TEdges> item)
         {
             return _values.Remove(item);
         }
 
-        public bool TryGetValue(TKey node, out TValue value)
+        /// <summary>
+        /// Attempts to retrieve the IEdge for the given INode
+        /// </summary>
+        /// <param name="node"></param>
+        /// <param name="value"></param>
+        /// <returns></returns>
+        public bool TryGetValue(TNode node, out TEdges value)
         {
             return _values.TryGetValue(node, out value);
         }
 
-        public void CopyTo(KeyValuePair<TKey, TValue>[] array, int arrayIndex)
+        /// <summary>
+        /// Copies the data to an array
+        /// </summary>
+        /// <param name="array"></param>
+        /// <param name="arrayIndex"></param>
+        public void CopyTo(KeyValuePair<TNode, TEdges>[] array, int arrayIndex)
         {
             _values.CopyTo(array, arrayIndex);
         }
 
-        IEnumerator<KeyValuePair<TKey, TValue>> IEnumerable<KeyValuePair<TKey, TValue>>.GetEnumerator()
+        /// <summary>
+        /// IEnumerator required for IDictionary implementations
+        /// </summary>
+        /// <returns></returns>
+        IEnumerator<KeyValuePair<TNode, TEdges>> IEnumerable<KeyValuePair<TNode, TEdges>>.GetEnumerator()
         {
             return _values.GetEnumerator();
         }
 
+        /// <summary>
+        /// Required for IDictionary implementations
+        /// </summary>
+        /// <returns></returns>
         System.Collections.IEnumerator System.Collections.IEnumerable.GetEnumerator()
         {
-            return ((IEnumerable<KeyValuePair<TKey, TValue>>)this).GetEnumerator();
+            return ((IEnumerable<KeyValuePair<TNode, TEdges>>)this).GetEnumerator();
         }
     }
 }

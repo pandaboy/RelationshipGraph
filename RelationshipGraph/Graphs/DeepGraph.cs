@@ -7,6 +7,12 @@ using RelationshipGraph.Messages;
 
 namespace RelationshipGraph.Graphs
 {
+    /// <summary>
+    /// Extension of Basic Graph with methods for querying the data
+    /// </summary>
+    /// <typeparam name="TNode"></typeparam>
+    /// <typeparam name="TEdge"></typeparam>
+    /// <typeparam name="TRelationship"></typeparam>
     public class DeepGraph<TNode, TEdge, TRelationship> : Graph<TNode, IList<TEdge>>
         where TNode : INode<TNode>
         where TRelationship : IRelationship<TRelationship>
@@ -34,11 +40,25 @@ namespace RelationshipGraph.Graphs
             return (ContainsKey(node) && this[node].Count > 0);
         }
 
+        /// <summary>
+        /// Checks to see if INode from has a Direct Edge to INode to
+        /// </summary>
+        /// <param name="from"></param>
+        /// <param name="to"></param>
+        /// <returns></returns>
         public virtual bool HasEdge(TNode from, TNode to)
         {
             return NodeHasEdge(from, from, to);
         }
 
+        /// <summary>
+        /// Checks to see if an edge with matching Source and Destination INode's exists
+        /// in INode node's edge's
+        /// </summary>
+        /// <param name="node"></param>
+        /// <param name="from"></param>
+        /// <param name="to"></param>
+        /// <returns></returns>
         public virtual bool NodeHasEdge(TNode node, TNode from, TNode to)
         {
             if (!ContainsKey(node))
@@ -53,11 +73,22 @@ namespace RelationshipGraph.Graphs
             return false;
         }
 
+        /// <summary>
+        /// Alternate for NodeHasEdge
+        /// </summary>
+        /// <param name="node"></param>
+        /// <param name="edge"></param>
+        /// <returns></returns>
         public virtual bool NodeHasEdge(TNode node, TEdge edge)
         {
             return NodeHasEdge(node, edge.From, edge.To);
         }
 
+        /// <summary>
+        /// Adds an Edge to INode node
+        /// </summary>
+        /// <param name="node"></param>
+        /// <param name="edge"></param>
         public virtual void AddEdge(TNode node, TEdge edge)
         {
             // if we aren't already storing edges for this node,
@@ -79,14 +110,23 @@ namespace RelationshipGraph.Graphs
             }
         }
 
+        /// <summary>
+        /// Alternate for AddEdge, treats From attribute in Edge as INode node
+        /// </summary>
+        /// <param name="edge"></param>
         public virtual void AddDirectEdge(TEdge edge)
         {
             AddEdge(edge.From, edge);
         }
 
+        /// <summary>
+        /// Alternate for AddEdge that creates a bidirectional connection between two
+        /// edge's by creating bothe Edge's at once.
+        /// </summary>
+        /// <param name="edge"></param>
         public virtual void AddCommonEdge(TEdge edge)
         {
-            // This is sorcery, ref: http://stackoverflow.com/a/731637/797709
+            // This is sorcery, for ref: http://stackoverflow.com/a/731637/797709
             // Uses Activator class to create a new instance of the TEdge generic
             // Activator class: https://msdn.microsoft.com/en-us/library/wccyzw83(v=vs.110).aspx
             //TEdge copy = new TEdge();
@@ -100,11 +140,21 @@ namespace RelationshipGraph.Graphs
             AddDirectEdge(copy);
         }
 
+        /// <summary>
+        /// Returns INode node's Edges
+        /// </summary>
+        /// <param name="node"></param>
+        /// <returns></returns>
         public virtual ICollection<TEdge> GetEdges(TNode node)
         {
             return this[node];
         }
 
+        /// <summary>
+        /// Returns INode node's Direct Edges. Those that have a matching From attribute.
+        /// </summary>
+        /// <param name="node"></param>
+        /// <returns></returns>
         public virtual ICollection<TEdge> GetDirectEdges(TNode node)
         {
             ICollection<TEdge> direct = new List<TEdge>();
@@ -121,6 +171,11 @@ namespace RelationshipGraph.Graphs
             return direct;
         }
 
+        /// <summary>
+        /// Returns INode node's Indirect edge. Those that do not match with the From attribute.
+        /// </summary>
+        /// <param name="node"></param>
+        /// <returns></returns>
         public virtual ICollection<TEdge> GetInDirectEdges(TNode node)
         {
             ICollection<TEdge> indirect = new List<TEdge>();
@@ -134,7 +189,12 @@ namespace RelationshipGraph.Graphs
             return indirect;
         }
 
-        // will return a direct edge from first Node to second Node
+        /// <summary>
+        /// Returns a Direction from INode from to Inode to
+        /// </summary>
+        /// <param name="from"></param>
+        /// <param name="to"></param>
+        /// <returns></returns>
         public virtual TEdge GetEdge(TNode from, TNode to)
         {
             if (!ContainsKey(from))
@@ -149,11 +209,24 @@ namespace RelationshipGraph.Graphs
             return default(TEdge);
         }
 
+        /// <summary>
+        /// Alias for GetNodeEdge
+        /// </summary>
+        /// <param name="node"></param>
+        /// <param name="edge"></param>
+        /// <returns></returns>
         public virtual TEdge GetNodeEdge(TNode node, TEdge edge)
         {
             return GetNodeEdge(node, edge.From, edge.To);
         }
 
+        /// <summary>
+        /// Returns the matching Edge from INode node's Edges
+        /// </summary>
+        /// <param name="node"></param>
+        /// <param name="from"></param>
+        /// <param name="to"></param>
+        /// <returns></returns>
         public virtual TEdge GetNodeEdge(TNode node, TNode from, TNode to)
         {
             if (!ContainsKey(node))
@@ -168,6 +241,12 @@ namespace RelationshipGraph.Graphs
             return default(TEdge);
         }
 
+        /// <summary>
+        /// Removes the matching Edge
+        /// </summary>
+        /// <param name="node"></param>
+        /// <param name="edge"></param>
+        /// <returns></returns>
         public virtual bool RemoveEdge(TNode node, TEdge edge)
         {
             if(ContainsKey(node))
@@ -187,11 +266,21 @@ namespace RelationshipGraph.Graphs
             return false;
         }
 
+        /// <summary>
+        /// Alias for RemoveEdge
+        /// </summary>
+        /// <param name="edge"></param>
+        /// <returns></returns>
         public virtual bool RemoveDirectEdge(TEdge edge)
         {
             return RemoveEdge(edge.From, edge);
         }
 
+        /// <summary>
+        /// Alias for RemoveEdge, removes matching bidirectional edge.
+        /// </summary>
+        /// <param name="edge"></param>
+        /// <returns></returns>
         public virtual bool RemoveCommonEdge(TEdge edge)
         {
             // This is sorcery, ref: http://stackoverflow.com/a/731637/797709
@@ -212,6 +301,11 @@ namespace RelationshipGraph.Graphs
             return (edge_result && copy_result);
         }
 
+        /// <summary>
+        /// Removes all Edge's for INode node
+        /// </summary>
+        /// <param name="node"></param>
+        /// <returns></returns>
         public virtual bool ClearEdges(TNode node)
         {
             if (IsGraphed(node))
@@ -223,6 +317,11 @@ namespace RelationshipGraph.Graphs
             return false;
         }
 
+        /// <summary>
+        /// Removes all Direct Edge's for INode node
+        /// </summary>
+        /// <param name="node"></param>
+        /// <returns></returns>
         public virtual bool ClearDirectEdges(TNode node)
         {
             if(IsGraphed(node))
@@ -236,6 +335,11 @@ namespace RelationshipGraph.Graphs
             return false;
         }
 
+        /// <summary>
+        /// Removes all IndirectEdges for INode node
+        /// </summary>
+        /// <param name="node"></param>
+        /// <returns></returns>
         public virtual bool ClearIndirectEdges(TNode node)
         {
             if (IsGraphed(node))
@@ -303,12 +407,23 @@ namespace RelationshipGraph.Graphs
             return nodes;
         }
 
-        // alias that accepts an edge and uses the Relationship in the edge
+        /// <summary>
+        /// Alias for WithRelationship
+        /// </summary>
+        /// <param name="node"></param>
+        /// <param name="edge"></param>
+        /// <returns></returns>
         public ICollection<TNode> WithEdge(TNode node, TEdge edge)
         {
             return WithRelationship(node, edge.Relationship);
         }
 
+        /// <summary>
+        /// alias for WithRelationshipTo
+        /// </summary>
+        /// <param name="node"></param>
+        /// <param name="edge"></param>
+        /// <returns></returns>
         public ICollection<TNode> WithEdgeTo(TNode node, TEdge edge)
         {
             return WithRelationshipTo(node, edge.Relationship);
@@ -317,8 +432,21 @@ namespace RelationshipGraph.Graphs
         /// <summary>
         /// Graph has a messenger for sending messages between nodes
         /// </summary>
+        /// <remarks>
+        /// NOTE: this member isn't necessary for sending messages. The methods
+        /// could just as well pass the IMessage directly, but this demonstrates
+        /// using a class to manage the messages for queuing.
+        /// </remarks>
         private Messenger<TNode> _messenger;
 
+        /// <summary>
+        /// Sends an IMessage from INode from to INode. Message can be queued.
+        /// </summary>
+        /// <param name="from"></param>
+        /// <param name="to"></param>
+        /// <param name="msg"></param>
+        /// <param name="delay"></param>
+        /// <returns></returns>
         public bool SendMessage(TNode from, TNode to, IMessage msg, double delay = 0.0)
         {
             if (_messenger == null)
@@ -329,6 +457,14 @@ namespace RelationshipGraph.Graphs
             return true;
         }
 
+        /// <summary>
+        /// Sends an IMessage to Nodes that INode from has IRelationship rel with.
+        /// </summary>
+        /// <param name="from"></param>
+        /// <param name="rel"></param>
+        /// <param name="msg"></param>
+        /// <param name="delay"></param>
+        /// <returns></returns>
         public bool SendMessage(TNode from, TRelationship rel, IMessage msg, double delay = 0.0)
         {
             ICollection<TNode> nodes = WithRelationship(from, rel);
@@ -341,6 +477,14 @@ namespace RelationshipGraph.Graphs
             return true;
         }
 
+        /// <summary>
+        /// Sends an IMessage to Nodes with IRelationship to INode
+        /// </summary>
+        /// <param name="from"></param>
+        /// <param name="rel"></param>
+        /// <param name="msg"></param>
+        /// <param name="delay"></param>
+        /// <returns></returns>
         public bool SendMessageTo(TNode from, TRelationship rel, IMessage msg, double delay = 0.0)
         {
             ICollection<TNode> nodes = WithRelationshipTo(from, rel);
