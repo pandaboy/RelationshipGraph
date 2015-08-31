@@ -1,10 +1,18 @@
 ﻿using System;
+using RelationshipGraph.Interfaces;
 using RelationshipGraph.Nodes;
 using RelationshipGraph.Relationships;
 
 namespace RelationshipGraph.Edges
 {
-    public class Connection : HistoryEdge<Entity, Relationship>
+    /// <summary>
+    /// 
+    /// </summary>
+    /// <remarks>
+    /// NOTE: This Edge implements the IMessage interface, see the
+    /// HandleMessage() method of the Entity class to see why we would do this.
+    /// </remarks>
+    public class Connection : HistoryEdge<Entity, Relationship>, IMessage
     {
         public Connection() : base() {}
         public Connection(Entity from, Entity to, Relationship relationship)

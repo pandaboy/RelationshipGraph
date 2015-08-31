@@ -9,6 +9,10 @@ namespace RelationshipGraph.Messages
     /// </summary>
     public class StringMessage : IMessage
     {
+        /// <summary>
+        /// Constructor
+        /// </summary>
+        /// <param name="text">Value for text attribute</param>
         public StringMessage(string text = "")
         {
             Text = text;
