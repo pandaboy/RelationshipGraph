@@ -12,7 +12,10 @@ namespace RelationshipGraph.Messages
         /// <summary>
         /// Constructor
         /// </summary>
-        public EdgeMessage() {}
+        public EdgeMessage()
+        {
+            // ..
+        }
 
         /// <summary>
         /// Constructor with payload

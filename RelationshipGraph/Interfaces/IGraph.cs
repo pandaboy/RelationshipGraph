@@ -14,5 +14,6 @@ namespace RelationshipGraph.Interfaces
     /// </typeparam>
     public interface IGraph<TNode, TEdge> : IDictionary<TNode, TEdge>
     {
+        // ..
     }
 }

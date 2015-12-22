@@ -62,12 +62,16 @@ namespace RelationshipGraph.Graphs
         public virtual bool NodeHasEdge(TNode node, TNode from, TNode to)
         {
             if (!ContainsKey(node))
+            {
                 return false;
+            }
 
             foreach(TEdge edge in GetEdges(node))
             {
                 if (edge.From.Equals(from) && edge.To.Equals(to))
+                {
                     return true;
+                }
             }
 
             return false;
@@ -164,7 +168,9 @@ namespace RelationshipGraph.Graphs
                 foreach (TEdge edge in this[node])
                 {
                     if (edge.From.Equals(node))
+                    {
                         direct.Add(edge);
+                    }
                 }
             }
 
@@ -182,8 +188,10 @@ namespace RelationshipGraph.Graphs
 
             foreach (TEdge edge in this[node])
             {
-                if(!edge.From.Equals(node))
+                if (!edge.From.Equals(node))
+                {
                     indirect.Add(edge);
+                }
             }
 
             return indirect;
@@ -198,12 +206,16 @@ namespace RelationshipGraph.Graphs
         public virtual TEdge GetEdge(TNode from, TNode to)
         {
             if (!ContainsKey(from))
+            {
                 return default(TEdge);
+            }
 
             foreach(TEdge edge in GetDirectEdges(from))
             {
                 if (edge.From.Equals(from) && edge.To.Equals(to))
+                {
                     return edge;
+                }
             }
 
             return default(TEdge);
@@ -230,12 +242,16 @@ namespace RelationshipGraph.Graphs
         public virtual TEdge GetNodeEdge(TNode node, TNode from, TNode to)
         {
             if (!ContainsKey(node))
+            {
                 return default(TEdge);
+            }
 
             foreach (TEdge nodeEdge in GetEdges(node))
             {
                 if (nodeEdge.From.Equals(from) && nodeEdge.To.Equals(to))
+                {
                     return nodeEdge;
+                }
             }
 
             return default(TEdge);
@@ -374,7 +390,9 @@ namespace RelationshipGraph.Graphs
             foreach(TEdge edge in GetDirectEdges(node))
             {
                 if (edge.Relationship.Equals(relationship) && edge.From.Equals(node))
+                {
                     nodes.Add(edge.To);
+                }
             }
 
             return nodes;
@@ -399,8 +417,10 @@ namespace RelationshipGraph.Graphs
             {
                 foreach(TEdge edge in edges)
                 {
-                    if(edge.Relationship.Equals(relationship) && edge.To.Equals(node))
+                    if (edge.Relationship.Equals(relationship) && edge.To.Equals(node))
+                    {
                         nodes.Add(edge.From);
+                    }
                 }
             }
 
@@ -450,7 +470,9 @@ namespace RelationshipGraph.Graphs
         public bool SendMessage(TNode from, TNode to, IMessage msg, double delay = 0.0)
         {
             if (_messenger == null)
+            {
                 _messenger = Messenger<TNode>.Instance;
+            }
 
             _messenger.Send(from, to, msg, delay);
 

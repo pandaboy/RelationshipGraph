@@ -16,10 +16,14 @@ namespace RelationshipGraph.Relationships
         public bool Equals(Cue other)
         {
             if (other == null)
+            {
                 return false;
+            }
 
             if (this != other)
+            {
                 return false;
+            }
 
             return true;
         }

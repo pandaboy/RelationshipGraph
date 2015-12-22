@@ -117,7 +117,9 @@ namespace RelationshipGraph.Edges
             get
             {
                 if (Relationships.Count <= 0)
+                {
                     return default(TRelationship);
+                }
 
                 int last = Relationships.Count - 1;
                 return _Relationships[last];
@@ -133,12 +135,18 @@ namespace RelationshipGraph.Edges
                     // most recent. if it is don't add it, update the weight
                     int last = Relationships.Count - 1;
                     if (!_Relationships[last].Equals(value))
+                    {
                         _Relationships.Add(value);
+                    }
                     else
+                    {
                         _Relationships[last] = value;
+                    }
                 }
                 else
+                {
                     Relationships.Add(value);
+                }
 
                 // or just add
                 // Relationships.Add(value);

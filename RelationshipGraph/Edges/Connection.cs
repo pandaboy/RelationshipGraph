@@ -45,8 +45,10 @@ namespace RelationshipGraph.Edges
         {
             string history = From + " - [";
 
-            foreach(Relationship relationship in History)
+            foreach (Relationship relationship in History)
+            {
                 history += relationship + " ";
+            }
 
             history += "] - " + To;
 

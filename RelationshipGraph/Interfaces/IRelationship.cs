@@ -11,5 +11,8 @@ namespace RelationshipGraph.Interfaces
     /// <remarks>
     /// Must implement Equals() method of IEquatable<T> for valid queries to work
     /// </remarks>
-    public interface IRelationship<TRelationship> : IEquatable<TRelationship> { }
+    public interface IRelationship<TRelationship> : IEquatable<TRelationship>
+    {
+        // ..
+    }
 }

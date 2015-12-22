@@ -80,15 +80,21 @@ namespace RelationshipGraph.Graphs
             get
             {
                 if (ContainsKey(node))
+                {
                     return _values[node];
+                }
                 else
+                {
                     return default(TEdges);
+                }
             }
 
             set
             {
-                if(ContainsKey(node))
+                if (ContainsKey(node))
+                {
                     _values[node] = value;
+                }
             }
         }
 

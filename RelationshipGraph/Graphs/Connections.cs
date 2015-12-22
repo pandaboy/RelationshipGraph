@@ -191,7 +191,9 @@ namespace RelationshipGraph.Graphs
                 foreach (Connection connection in GetConnections(entity))
                 {
                     if (connection.From.Equals(other) || connection.To.Equals(other))
+                    {
                         otherConnections.Add(connection);
+                    }
                 }
             }
 
@@ -213,7 +215,9 @@ namespace RelationshipGraph.Graphs
                 foreach(Connection connection in GetIndirectConnections(entity))
                 {
                     if (connection.From.Equals(other) || connection.To.Equals(other))
+                    {
                         known.Add(connection);
+                    }
                 }
             }
 
@@ -254,10 +258,15 @@ namespace RelationshipGraph.Graphs
                 foreach(Connection connection in GetIndirectConnections(entity))
                 {
                     if (!indirect.Contains(connection.From))
+                    {
                         indirect.Add(connection.From);
+                    }   
 
                     if (!indirect.Contains(connection.To))
+                    {
                         indirect.Add(connection.To);
+                    }
+                        
                 }
             }
 
@@ -477,18 +486,24 @@ namespace RelationshipGraph.Graphs
             {
                 // skip the entity passed in
                 if (item.Key.Equals(entity))
+                {
                     continue;
+                }
 
                 for(int i = 0; i < item.Value.Count; i++)
                 {
                     if (item.Value[i].From.Equals(entity) || item.Value[i].To.Equals(entity))
+                    {
                         item.Value.RemoveAt(i);
+                    }
                 }
             }
 
             // remove the connections stored for this entity
             if (complete)
+            {
                 _graph.Remove(entity);
+            }
 
             return true;
         }
@@ -580,7 +595,9 @@ namespace RelationshipGraph.Graphs
                     foreach(Relationship rel in connection.History)
                     {
                         if (rel.Equals(relationship))
+                        {
                             matches.Add(connection.To);
+                        }
                     }
                 }
             }
@@ -609,8 +626,12 @@ namespace RelationshipGraph.Graphs
                         // if the connection is TO the entity,
                         // and the relationship matches
                         // and it hasn't already been catalogued - add it.
-                        if (rel.Equals(relationship) && connection.To.Equals(entity) && !matches.Contains(connection.From))
+                        if (rel.Equals(relationship)
+                            && connection.To.Equals(entity)
+                            && !matches.Contains(connection.From))
+                        {
                             matches.Add(connection.From);
+                        }
                     }
                 }
             }
@@ -637,10 +658,14 @@ namespace RelationshipGraph.Graphs
         /// <returns></returns>
         public IList<Relationship> GetRelationshipHistory(Entity entity, Entity other)
         {
-            if(EntityHasConnection(entity, entity, other))
+            if (EntityHasConnection(entity, entity, other))
+            {
                 return GetConnection(entity, other).Relationships;
+            }
             else
+            {
                 return new List<Relationship>();
+            }
         }
 
         /// <summary>
@@ -657,7 +682,9 @@ namespace RelationshipGraph.Graphs
                 foreach (Relationship rel in GetConnection(entity, other).Relationships)
                 {
                     if (rel.Equals(relationship))
+                    {
                         return true;
+                    }
                 }
             }
 
