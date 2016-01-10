@@ -6,7 +6,7 @@ using RelationshipGraph.Interfaces;
 namespace RelationshipGraph.Graphs
 {
     /// <summary>
-    /// Minium IDictionary implementation for a Graph. Acts as a Base class for other Graphs
+    /// Minimum IDictionary implementation for a Graph. Acts as a Base class for other Graphs
     /// </summary>
     /// <typeparam name="TNode"></typeparam>
     /// <typeparam name="TEdges"></typeparam>
