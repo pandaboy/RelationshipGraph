@@ -4,7 +4,9 @@ using RelationshipGraph.Interfaces;
 namespace RelationshipGraph.Relationships
 {
     /// <summary>
-    /// Cue as implementation of a Relationship
+    /// Cue as implementation of a Relationship.
+    /// The relationship is the item that is shared between nodes
+    /// and passed around between nodes of the Graph.
     /// </summary>
     public class Cue : IRelationship<Cue>
     {
