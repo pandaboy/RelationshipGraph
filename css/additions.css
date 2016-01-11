@@ -23,3 +23,10 @@ div#unityPlayer {
   height: 600px;
   width: 620px;
 }
+
+ul {
+  list-style: inside none none;
+}
+ul li {
+  list-style: inside none disc;
+}
